@@ -1,6 +1,5 @@
 <template>
     <div>
- header-component
         <HeaderComponent></HeaderComponent>
 
         <JumboComponent></JumboComponent>

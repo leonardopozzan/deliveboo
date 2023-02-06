@@ -39,7 +39,7 @@ export default {
     methods: {
         handleScroll() {
 
-            if (window.scrollY > 100) {
+            if (window.scrollY > 250) {
                 this.showNav = true;
             } else {
                 this.showNav = false;
@@ -60,6 +60,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
 }
 
 .scrolled {
