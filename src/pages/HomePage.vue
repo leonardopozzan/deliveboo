@@ -1,16 +1,20 @@
 <template>
     <div>
+ header-component
+        <HeaderComponent></HeaderComponent>
+
         <JumboComponent></JumboComponent>
+
     </div>
 </template>
 
 <script>
+
+import HeaderComponent from '../components/HeaderComponent.vue';
 import JumboComponent from '../components/JumboComponent.vue';
-
-
 export default {
     name: "HomePage",
-    components: { JumboComponent }
+    components: { HeaderComponent, JumboComponent }
 }
 </script>
 
