@@ -1,24 +1,23 @@
 <template>
     <div>
+ header-component
         <HeaderComponent></HeaderComponent>
-        <h1>HomePage</h1>
-        <div class="test">
 
-        </div>
+        <JumboComponent></JumboComponent>
+
     </div>
 </template>
 
 <script>
-import HeaderComponent from '../components/HeaderComponent.vue';
 
+import HeaderComponent from '../components/HeaderComponent.vue';
+import JumboComponent from '../components/JumboComponent.vue';
 export default {
     name: "HomePage",
-    components: { HeaderComponent }
+    components: { HeaderComponent, JumboComponent }
 }
 </script>
 
 <style lang="scss" scoped>
-.test {
-    height: 110vh;
-}
+
 </style>
