@@ -1,12 +1,16 @@
 <template>
     <div>
-        <h1>HomePage</h1>
+        <JumboComponent></JumboComponent>
     </div>
 </template>
 
 <script>
+import JumboComponent from '../components/JumboComponent.vue';
+
+
 export default {
-    name: 'HomePage',
+    name: "HomePage",
+    components: { JumboComponent }
 }
 </script>
 
