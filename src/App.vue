@@ -1,6 +1,5 @@
 <template>
   <div>
-    App
     <router-view></router-view>
   </div>
 </template>
@@ -10,6 +9,11 @@ import { RouterView } from 'vue-router';
 
 export default {
   name: 'App',
+
+  components: {
+    RouterView,
+  },
+
 }
 </script>
 
