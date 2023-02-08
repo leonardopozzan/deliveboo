@@ -4,7 +4,7 @@
 
         <JumboComponent></JumboComponent>
         <main class="container" >
-            <section id="types">
+            <section id="types"  >
                 <TypeCardComponent></TypeCardComponent>
 
             </section>
