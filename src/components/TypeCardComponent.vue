@@ -16,7 +16,7 @@
           
         </div>
         <div>
-          <h5 class="type-title">{{ item.name }}</h5> 
+          <h5 class="type-title" >{{ item.name =='pizzeria'? 'pizza':item.name }}</h5> 
         </div>
       </div>
     </div>
