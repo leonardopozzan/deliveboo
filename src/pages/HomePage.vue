@@ -8,6 +8,11 @@
                 <TypeCardComponent></TypeCardComponent>
 
             </section>
+            <section id="info">
+                <InfoComponent></InfoComponent>
+            </section>
+        
+    
           
 
           
@@ -20,12 +25,13 @@
 <script>
 import axios from "axios";
 import HeaderComponent from '../components/HeaderComponent.vue';
+import InfoComponent from "../components/InfoComponent.vue";
 import JumboComponent from '../components/JumboComponent.vue';
 import TypeCardComponent from '../components/TypeCardComponent.vue';
 import{store} from '../store';
 export default {
     name: "HomePage",
-    components: { HeaderComponent, JumboComponent, TypeCardComponent },
+    components: { HeaderComponent, JumboComponent, TypeCardComponent, InfoComponent },
     data(){
         return{
             store,
