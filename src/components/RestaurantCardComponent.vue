@@ -1,20 +1,22 @@
 <template>
     <div class="col-sm-6 col-lg-4">
-        <div class="card-box">
-            <div class="card-image">
-                <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name">
-                <div class="preorder" v-if="!isIntervalActive()">
-                    <span>Preordina</span>
-                    <span>Apre alle ore {{ restaurant.opening_hours.slice(0, 5) }}</span>
+        <a href="#nogo">
+            <div class="card-box">
+                <div class="card-image">
+                    <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name">
+                    <div class="preorder" v-if="!isIntervalActive()">
+                        <span>Preordina</span>
+                        <span>Apre alle ore {{ restaurant.opening_hours.slice(0, 5) }}</span>
+                    </div>
+                </div>
+                <div class="card-info p-3">
+                    <h5 class="mb-1">{{ restaurant.name }}</h5>
+                    <span v-for="(types, i) in types">{{
+                        types.id === restaurant.id ? types.name.charAt(0).toUpperCase() + types.name.slice(1) : ''
+                    }}</span>
                 </div>
             </div>
-            <div class="card-info p-3">
-                <h5 class="mb-1">{{ restaurant.name }}</h5>
-                <span v-for="(types, i) in types">{{
-                    types.id === restaurant.id ? types.name.charAt(0).toUpperCase() + types.name.slice(1) : ''
-                }}</span>
-            </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -55,6 +57,7 @@ export default {
 
 .card-box {
 
+    height: 305px;
     border-radius: 6px;
     padding: 0;
     overflow: hidden;

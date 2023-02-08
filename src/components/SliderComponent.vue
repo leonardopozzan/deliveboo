@@ -1,0 +1,96 @@
+<template>
+    <!-- Slider main container -->
+    <swiper :modules="modules" :slides-per-view="5" :space-between="50" navigation @swiper="onSwiper"
+        @slideChange="onSlideChange">
+        <swiper-slide v-for="(type, i) in  types">
+            <div class="slide-image">
+                <img :src="`${imgUrl}${type.image}`" alt="">
+                <div class="slide-type">
+                    <h6>{{ type.name }}</h6>
+                </div>
+            </div>
+        </swiper-slide>
+    </swiper>
+</template>
+
+<script>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation } from 'swiper'
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+
+
+export default {
+
+    name: 'SliderComponent',
+
+    components: {
+        Swiper,
+        SwiperSlide,
+    },
+
+    props: ['types', 'imgUrl'],
+
+    data() {
+        return {
+        }
+    },
+
+
+    setup() {
+        const onSwiper = (swiper) => {
+            console.log(swiper);
+        };
+        const onSlideChange = () => {
+            console.log('slide change');
+        };
+        return {
+            onSwiper,
+            onSlideChange,
+            modules: [Navigation],
+        };
+    },
+
+}
+
+</script>
+
+<style lang="scss" scoped>
+@use '../assets/styles/partials/_variables' as *;
+@use '../assets/styles/partials/_mixins' as *;
+
+
+.swiper {
+    .swiper-slide {
+        border-radius: 6px;
+        overflow: hidden;
+
+        .slide-image {
+            height: 134px;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+            }
+
+
+            .slide-type {
+                background-color: rgba(255, 255, 255, 0.6);
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                h6 {
+                    padding: 4px 6px;
+                    margin: 0;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+</style>
