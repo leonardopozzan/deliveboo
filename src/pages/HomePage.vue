@@ -4,8 +4,11 @@
 
         <JumboComponent></JumboComponent>
         <main class="container" >
-          
+            <section id="types">
                 <TypeCardComponent></TypeCardComponent>
+
+            </section>
+          
 
           
 
@@ -46,5 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#types{
+    padding:30px 0;
+}
 </style>
