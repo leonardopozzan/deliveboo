@@ -22,7 +22,7 @@ const pathHomeImg=[
     {
     img:'/img/cibo-domicilio-2.png',
     title:'Divano ,Tv e Pizza',
-    desc:'trova le pizzerie più vicine a te e non perderti neanche un secondo della tua serie preferita!'
+    desc:'Trova le pizzerie più vicine a te e non perderti neanche un secondo della tua serie preferita!'
     },
     {
      img:'img/cibo-domicilio-1.png',
@@ -36,7 +36,7 @@ const pathHomeImg=[
     },
     {
     img:'img/cibo-domicilio-4.png',
-    title:'Per Tutti i gusti ',
+    title:'Per tutti i gusti ',
     desc:'Il meglio della cucina vegetariana, vegana ,internazionale e italiana . Troverai di sicuro qualcosa per te !'
     },
 
