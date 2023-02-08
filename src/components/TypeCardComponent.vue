@@ -1,4 +1,6 @@
 <template>
+  <h2>Cosa Mangiamo oggi ?</h2>
+  <p>Beh se la scelta non è ovvia questa e la selezione delle pietanze più ordinate dalla community di FoodLover come te!</p>
   <div v-if="types.length" class="d-flex flex-wrap row g-2">
     <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-4">
       <div class="card my-cards m-4">
@@ -56,6 +58,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_mixins' as *;
+@use '../assets/styles/partials/_variables' as *;
+h2{
+  color:$red;
+}
+
 .my-cards {
   width: 18rem;
   position: relative;
