@@ -1,6 +1,8 @@
 <template>
     <Transition name="scroll">
-        <nav class="navbar bg-white nav-position" v-show="showNav">
+        <nav class="navbar bg-white nav-position" v-show="showNav"
+            v-if="$route.name === 'restaurants' ? showNav = true: ''"
+            :class="$route.name === 'restaurants' ? 'nav-block': ''">
             <div class="container-lg">
                 <a class="navbar-brand" href="#">
                     <img src="../assets/img/dishdrop-nero-arancione.png" alt="logo" width="80" height="80">
@@ -73,9 +75,10 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 10000;
 }
 
-.scrolled {
-    transform: translateY(0);
+.nav-block {
+    position: sticky;
 }
 </style>
