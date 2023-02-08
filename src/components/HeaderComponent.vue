@@ -3,9 +3,9 @@
         <nav class="navbar bg-white nav-position" v-show="showNav"
             :class="{ 'nav-block': $route.name === 'restaurants' }">
             <div class="container-lg">
-                <a class="navbar-brand" href="#">
+                <router-link to="/" class="navbar-brand">
                     <img src="../assets/img/dishdrop-nero-arancione.png" alt="logo" width="80" height="80">
-                </a>
+                </router-link>
             </div>
         </nav>
     </Transition>
