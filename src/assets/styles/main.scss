@@ -1,3 +1,6 @@
+@use './partials/_variables' as *;
+@use './partials/_mixins' as *;
+
 @import 'bootstrap/scss/bootstrap.scss';
 
 $fa-font-path : "../webfonts";
@@ -5,6 +8,12 @@ $fa-font-path : "../webfonts";
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
+
+
+
+body {
+    background-color: $body-background;
+}
 
 
 ul {
