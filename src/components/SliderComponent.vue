@@ -1,7 +1,23 @@
 <template>
     <!-- Slider main container -->
-    <swiper :modules="modules" :slides-per-view="5" :space-between="50" navigation @swiper="onSwiper"
-        @slideChange="onSlideChange">
+    <swiper :modules="modules" :slides-per-view="1" :space-between="10" :breakpoints="{
+        '425': {
+            slidesPerView: 2,
+            spaceBetween: 10,
+        },
+        '768': {
+            slidesPerView: 3,
+            spaceBetween: 10,
+        },
+        '1024': {
+            slidesPerView: 4,
+            spaceBetween: 20,
+        },
+        '1400': {
+            slidesPerView: 5,
+            spaceBetween: 20,
+        },
+    }" navigation @swiper="onSwiper" @slideChange="onSlideChange">
         <swiper-slide v-for="(type, i) in  types">
             <div class="slide-image">
                 <img :src="`${imgUrl}${type.image}`" alt="">
