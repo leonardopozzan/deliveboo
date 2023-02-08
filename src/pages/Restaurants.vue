@@ -2,7 +2,10 @@
     <div>
         <HeaderComponent></HeaderComponent>
         <div class="container-fluid">
-            <div class="container-lg py-4">
+            <div class="slider-box container-lg py-4">
+                <SliderComponent :types="types" :imgUrl="store.imagBasePath"></SliderComponent>
+            </div>
+            <div class="cards-box container-lg py-4">
                 <div class="row g-3">
                     <RestaurantCardComponent v-for="(restaurant, i) in restaurants" :restaurant="restaurant"
                         :types=types>
@@ -18,12 +21,13 @@ import axios from 'axios';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import RestaurantCardComponent from '../components/RestaurantCardComponent.vue';
 import { store } from '../store';
+import SliderComponent from '../components/SliderComponent.vue';
 
 
 
 export default {
     name: "Restaurants",
-    components: { HeaderComponent, RestaurantCardComponent },
+    components: { HeaderComponent, RestaurantCardComponent, SliderComponent },
 
     data() {
         return {
