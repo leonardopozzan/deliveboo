@@ -45,7 +45,7 @@ export default {
 
     methods: {
         getRestaurants() {
-            axios.get(this.store.apiBaseUrl + "/restaurants").then(response => {
+            axios.get(this.store.apiBaseUrl + "/restaurants",store.data).then(response => {
                 this.restaurants = response.data.results;
                 console.log(response.data.results);
             });
@@ -60,6 +60,14 @@ export default {
 
 
     },
+    watch:{
+        "store.data":{
+            handler(){
+                this.getRestaurants();
+            },
+            deep:true,
+        }
+    }
 }
 
 

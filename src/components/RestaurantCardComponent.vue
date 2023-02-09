@@ -11,9 +11,9 @@
                 </div>
                 <div class="card-info p-3">
                     <h5 class="mb-1">{{ restaurant.name }}</h5>
-                    <span v-for="(types, i) in types">{{
-                        types.id === restaurant.id ? types.name.charAt(0).toUpperCase() + types.name.slice(1) : ''
-                    }}</span>
+                    <span v-for="(type, i) in restaurant.types" class="text-capitalize">
+
+                    {{(i < (restaurant.types.length - 1)) ? type.name + ', ' : type.name  }} </span>
                 </div>
             </div>
         </a>
