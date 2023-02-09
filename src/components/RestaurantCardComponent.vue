@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-6 col-lg-4">
-        <a href="#nogo">
+     <router-link :to="{name:'menu', params:{slug:restaurant.slug}}">
             <div class="card-box">
                 <div class="card-image">
                     <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name">
@@ -16,7 +16,7 @@
                     {{(i < (restaurant.types.length - 1)) ? type.name + ', ' : type.name  }} </span>
                 </div>
             </div>
-        </a>
+     </router-link>
     </div>
 </template>
 

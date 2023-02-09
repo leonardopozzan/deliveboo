@@ -21,7 +21,7 @@ const router = createRouter({
     },
 
     {
-      path: '/menu',
+      path: '/menu/:slug',
       name: 'menu',
       component: Menu,
     },
@@ -37,6 +37,7 @@ const router = createRouter({
       name: 'not-found',
       component: NotFoundPage,
     },
+    
   ]
 })
 
