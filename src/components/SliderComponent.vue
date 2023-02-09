@@ -25,7 +25,16 @@
                     <h6>{{ type.name }}</h6>
                 </div>
             </div>
+
         </swiper-slide>
+        <swipper-slide>
+            <div class="slide-image" @click="resetType()">
+            <img src="/img/dd-slide.png" alt="alltype">
+        <div class="slide-type">
+            <h6>Guarda tutti i ristoranti</h6>
+        </div>
+        </div>
+        </swipper-slide>
     </swiper>
 </template>
 
@@ -73,6 +82,9 @@ export default {
         getRestaurantbyTypes(id){
             store.data.params.typeFilter=id;
             console.log(store.data.params.typeFilter);
+        },
+        resetType(){
+            store.data.params.typeFilter='';
         }
         }
 
