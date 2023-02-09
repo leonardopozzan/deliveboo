@@ -5,7 +5,7 @@
     
     <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-4">
       <router-link to="/restaurants" > 
-      <div class="card my-cards m-4">
+      <div class="card my-cards m-4" @click="getFilter(item.id)">
         <div class="img-typebox">
 
           <img
@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios";
+import { store } from "../store";
 export default {
   data() {
     return {
@@ -58,7 +59,14 @@ export default {
     showAll() {
       this.showAllTypes = !this.showAllTypes;
     },
+    getFilter(id) {
+      store.data.params.typeFilter=id;
+      
+
+
+
   },
+}
 };
 </script>
 <style lang="scss" scoped>
