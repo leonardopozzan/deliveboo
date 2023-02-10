@@ -4,7 +4,7 @@
             :class="{ 'nav-block': $route.name === 'restaurants' }">
             <div class="container-lg">
                 <router-link to="/" class="navbar-brand">
-                    <img src="../assets/img/dishdrop-nero-arancione.png" alt="logo" width="80" height="80">
+                    <img src="img/dish-drop-rb-01.png" alt="logo" width="80" height="80">
                 </router-link>
             </div>
         </nav>

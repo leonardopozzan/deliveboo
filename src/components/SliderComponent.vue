@@ -128,9 +128,13 @@ export default {
                     padding: 4px 6px;
                     margin: 0;
                     text-transform: capitalize;
+                    font-weight: $font-w-md;
+                    margin-left: 12px;
                 }
             }
         }
+
     }
+
 }
 </style>

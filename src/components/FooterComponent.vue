@@ -3,7 +3,7 @@
         <div class="container-lg py-4">
             <div class="primary-section d-flex justify-content-between align-items-center">
                 <div class="col-2">
-                    <img src="../assets/img/dishdrop-bianco-rosa.png" alt="logo">
+                    <img src="img/dish-drop-rw-01.png" alt="logo">
                 </div>
                 <div class="col-2 icons d-flex justify-content-between">
                     <a href="#nogo"><i class="fa-brands fa-square-facebook"></i></a>
