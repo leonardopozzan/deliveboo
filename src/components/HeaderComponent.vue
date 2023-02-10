@@ -1,7 +1,7 @@
 <template>
     <Transition name="scroll">
         <nav class="navbar bg-white nav-position" v-show="showNav"
-            :class="{ 'nav-block': $route.name === 'restaurants' }">
+            :class="{ 'nav-block': $route.name != 'home'  }">
             <div class="container-lg">
                 <router-link to="/" class="navbar-brand">
                     <img src="../assets/img/dishdrop-nero-arancione.png" alt="logo" width="80" height="80">
