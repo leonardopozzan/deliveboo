@@ -1,35 +1,32 @@
 <template>
   <h2>Cosa Mangiamo oggi ?</h2>
-  <p>Beh se la scelta non è ovvia questa e la selezione delle pietanze più ordinate dalla community di FoodLover come te!</p>
-  <div v-if="types.length" class="d-flex flex-wrap row g-2">
-    
-    <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-4">
-      <router-link to="/restaurants" > 
-      <div class="card my-cards m-4" @click="getFilter(item.id)">
-        <div class="img-typebox">
+  <p>Beh se la scelta non è ovvia questa e la selezione delle pietanze più ordinate dalla community di FoodLover come
+    te!</p>
+  <div v-if="types.length" class=" row g-3">
 
-          <img
-            class="img-type"
-            :src="`http://127.0.0.1:8000/storage/${item.image}`"
-            :alt="item.name"
-          />
+    <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-12 col-md-6 col-lg-4">
+      <router-link to="/restaurants">
+        <div class="card my-cards" @click="getFilter(item.id)">
+          <div class="img-typebox">
+
+            <img class="img-type" :src="`http://127.0.0.1:8000/storage/${item.image}`" :alt="item.name" />
+          </div>
+          <div class="card-body triangolo">
+
+          </div>
+          <div>
+            <h5 class="type-title">{{ item.name == 'pizzeria' ? 'pizza' : item.name }}</h5>
+          </div>
         </div>
-        <div class="card-body triangolo">
-          
-        </div>
-        <div>
-          <h5 class="type-title" >{{ item.name =='pizzeria'? 'pizza':item.name }}</h5> 
-        </div>
-      </div>
-    </router-link>
+      </router-link>
     </div>
-   
+
   </div>
 
   <div class="bottone my-5">
-    <button v-if="types.length > 5" class="btn btn-primary" @click="showAll">
-      {{ showAllTypes ? "Mostra Meno" : "Mostra di più" }}
-    </button>
+    <button class="button-more" role="button" @click="showAll">{{
+      showAllTypes? "Mostra Meno": "Mostra di più"
+    }}</button>
   </div>
 </template>
 
@@ -60,56 +57,88 @@ export default {
       this.showAllTypes = !this.showAllTypes;
     },
     getFilter(id) {
-      store.data.params.typeFilter=id;
-      
+      store.data.params.typeFilter = id;
 
 
 
-  },
-}
+
+    },
+  }
 };
 </script>
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_mixins' as *;
 @use '../assets/styles/partials/_variables' as *;
-h2{
-  color:$red;
+
+h2 {
+  color: $red;
+  font-weight: $font-w-lg;
+}
+
+p {
+  font-weight: $font-w-md;
 }
 
 .my-cards {
-  width: 18rem;
   position: relative;
-  overflow:hidden;
-  .img-typebox{
+  overflow: hidden;
+
+  .img-typebox {
     width: 100%;
     height: 186px;
-    
 
-  
-  .img-type {
-   
-    width: 100%;
-    height: 100%;
-    display:block;
-    object-fit: cover;
-    
+
+
+    .img-type {
+
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+
+    }
   }
-}
 
   .triangolo {
-    @include triangolo(192px,200px);
-    
-    
+    @include triangolo(192px, 200px);
+
   }
+
   .type-title {
-      color:white;
-    position:absolute;
-    top:10px;
-    left:10px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
     text-transform: capitalize;
-    }
+  }
 }
+
 .bottone {
   text-align: center;
+}
+
+/* CSS */
+.button-more {
+  background-color: $red;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: $font-sl;
+  font-weight: $font-w-lg;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-more:hover {
+  box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
 }
 </style>
