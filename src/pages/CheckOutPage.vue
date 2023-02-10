@@ -35,7 +35,7 @@
                             <div class="input mb-2">
                                 <input class="" type="text" name="email" id="email" placeholder="E-mail" required>
                             </div>
-                            <p class="mx-1 text-uppercase">Indririzzo</p>
+                            <p class="mx-1 text-uppercase">Indirizzo</p>
                             <div class="input mb-2">
                                 <input class="" type="text" name="address" id="address" placeholder="Indirizzo"
                                     required>
