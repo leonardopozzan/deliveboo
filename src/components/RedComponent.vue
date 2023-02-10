@@ -3,11 +3,7 @@
         <div class="container">
             <img class="img-logo ms-4" src="../assets/img/dishdrop-bianco-arancione.png" alt="">
         </div>
-        <div class="restaurant-name">
-            <div class="container">
-
-            </div>
-        </div>
+        
     </div>
 
 
