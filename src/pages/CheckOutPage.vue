@@ -25,26 +25,28 @@
                         </div>
                     </div>
                     <div class="riepilogo-down">
-                        <h3 class="py-2 text-bold">Riepilogo</h3>
+                        <h3 class="py-2 text-bold">Inserisci i tuoi dati</h3>
                         <form class="col-12 text-start">
-                            <p class="mx-1 text-uppercase">Nome e cognome *</p>
+                            <p class="mx-1">Nome e cognome *</p>
                             <div class="input mb-2">
                                 <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required>
                             </div>
-                            <p class="mx-1 text-uppercase">E-mail</p>
+                            <p class="mx-1 text-capitalize">E-mail *</p>
                             <div class="input mb-2">
                                 <input class="" type="email" name="email" id="email" placeholder="E-mail" required>
                             </div>
-                            <p class="mx-1 text-uppercase">Indirizzo</p>
+                            <p class="mx-1 text-capitalize">Indirizzo *</p>
                             <div class="input mb-2">
                                 <input class="" type="text" name="address" id="address" placeholder="Indirizzo"
                                     required>
                             </div>
-                            <p class="mx-1 text-uppercase">Telefono</p>
-                            <div class="input mb-5">
+                            <p class="mx-1 text-capitalize">Telefono *</p>
+                            <div class="input mb-2">
                                 <input class="" type="text" name="telephone" id="telephone" placeholder="Telefono"
                                     required>
                             </div>
+                            <div class="input mb-5">* Campi obbligatori</div>
+
                             <h3 class="py-2 text-bold">Come vuoi pagare?</h3>
                             <a class="btn button credit-card mb-4"> <i class="fa-solid fa-credit-card"></i> Carta di
                                 Credito</a>
@@ -62,7 +64,7 @@
                 <div class="icon col-1 text-center">
                     <i class="fa-solid fa-phone"></i>
                 </div>
-                <div class="info-tel col-6">
+                <div class="info-tel col-8 ">
                     <p>Chiama (nome ristorante) al +39 (numero ristorante)</p>
                 </div>
 
@@ -71,7 +73,7 @@
                 <div class="icon col-1 text-center">
                     <i class="fa-solid fa-envelope"></i>
                 </div>
-                <div class="info-email col-6">
+                <div class="info-email col-8">
                     <p>Invia una mail a (indirizzo email ristorante)</p>
                 </div>
 
@@ -169,6 +171,10 @@ export default {
                     font-size: 40px;
                 }
             }
+
+            .info-tel {
+                font-size: 20px;
+            }
         }
 
         .card-email {
@@ -176,6 +182,10 @@ export default {
                 .fa-envelope {
                     font-size: 40px;
                 }
+            }
+
+            .info-email {
+                font-size: 20px;
             }
         }
     }
