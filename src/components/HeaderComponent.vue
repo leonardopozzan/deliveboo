@@ -1,12 +1,18 @@
 <template>
     <Transition name="scroll">
-        <nav class="navbar bg-white nav-position" v-show="showNav"
+        <nav class="navbar bg-white nav-position d-flex" v-show="showNav"
             :class="{ 'nav-block': $route.name != 'home'  }">
             <div class="container-lg">
                 <router-link to="/" class="navbar-brand">
                     <img src="img/dish-drop-rb-01.png" alt="logo" width="80" height="80">
                 </router-link>
+                <div>
+                <router-link to="/restaurants">TUTTI I RISTORANTI </router-link>
+                
+                
             </div>
+            </div>
+           
         </nav>
     </Transition>
 </template>
