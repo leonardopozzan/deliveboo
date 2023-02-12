@@ -4,7 +4,7 @@
       <RedComponent></RedComponent>
   
       <div class="container container-monocard my-2 d-flex p-3">
-        <div class="card-riepilogo d-flex col-9">
+        <div class="card-riepilogo margin-negativo d-flex col-9">
           <div class="card riepilogo-show col-12 p-3">
             <h3 class="py-2 text-bold text-center mb-3">Riepilogo ordine</h3>
             <div class="riepilogo-top d-flex justify-content-between">
@@ -252,6 +252,9 @@
         }
       }
     }
+  }
+  .margin-negativo{
+    margin-top: -80px;
   }
   </style>
   
