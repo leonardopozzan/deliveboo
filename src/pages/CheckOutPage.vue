@@ -104,7 +104,7 @@
             <i class="fa-solid fa-phone"></i>
           </div>
           <div class="info-tel col-6">
-            <p>Chiama {{ menu.name }} al +39 {{menu.phone_number}} </p>
+            <p>Chiama {{ menu.name }} al +39{{menu.phone_number}} </p>
           </div>
         </div>
         <div class="card-email my-3 d-flex">
