@@ -57,6 +57,10 @@ p {
 
 .my-info {
 
+    &:hover .triangolo {
+        opacity: 1;
+    }
+
     .col-container {
 
         overflow: hidden;

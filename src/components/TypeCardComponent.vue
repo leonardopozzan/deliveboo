@@ -83,6 +83,10 @@ p {
   position: relative;
   overflow: hidden;
 
+  &:hover .triangolo {
+    opacity: 1;
+  }
+
   .img-typebox {
     width: 100%;
     height: 186px;
