@@ -28,7 +28,7 @@
         </swiper-slide>
         <swiper-slide v-for="(type, i) in  types">
             <div class="slide-image" @click="getRestaurantbyTypes(type.id)">
-                <img :src="`${imgUrl}${type.image}`" alt="">
+                <div v-if="type.image"><img :src="`${imgUrl}${type.image}`" alt=""></div>
                 <div class="slide-type">
                     <h6>{{ type.name }}</h6>
                 </div>
@@ -67,10 +67,10 @@ export default {
 
     setup() {
         const onSwiper = (swiper) => {
-            console.log(swiper);
+            // console.log(swiper);
         };
         const onSlideChange = () => {
-            console.log('slide change');
+            // console.log('slide change');
         };
         return {
             onSwiper,
@@ -81,7 +81,7 @@ export default {
     methods: {
         getRestaurantbyTypes(id) {
             store.data.params.typeFilter = id;
-            console.log(store.data.params.typeFilter);
+            // console.log(store.data.params.typeFilter);
         },
         resetType() {
             store.data.params.typeFilter = '';

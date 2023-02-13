@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid footer-container">
         <div class="container-lg py-4">
+
             <div
                 class="primary-section d-flex flex-column flex-md-row align-items-center justify-content-md-between align-items-md-center mb-md-4">
                 <div class="col-4 col-sm-2 mb-4">

@@ -3,7 +3,8 @@
      <router-link :to="{name:'menu', params:{slug:restaurant.slug}}">
             <div class="card-box">
                 <div class="card-image">
-                    <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name">
+                    <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name" v-if="restaurant.image">
+                    <img v-else src="https://picsum.photos/id/102/400/200" alt="">
                     <div class="preorder" v-if="!isIntervalActive()">
                         <span>Preordina</span>
                         <span>Apre alle ore {{ restaurant.opening_hours.slice(0, 5) }}</span>

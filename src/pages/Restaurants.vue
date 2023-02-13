@@ -47,7 +47,7 @@ export default {
         getRestaurants() {
             axios.get(this.store.apiBaseUrl + "/restaurants",store.data).then(response => {
                 this.restaurants = response.data.results;
-                console.log(response.data.results);
+                // console.log(response.data.results);
             });
         },
 
