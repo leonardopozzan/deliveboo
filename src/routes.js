@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from './pages/HomePage.vue';
 import Restaurants from './pages/Restaurants.vue';
 import Menu from './pages/Menu.vue';
+import ContactUs from './pages/ContactUs.vue';
 import CheckOutPage from './pages/CheckOutPage.vue';
 import NotFoundPage from './pages/NotFoundPage.vue';
 
@@ -30,6 +31,12 @@ const router = createRouter({
       path: '/check-out',
       name: 'check-out',
       component: CheckOutPage,
+    },
+
+    {
+      path: '/contact',
+      name: 'contact',
+      component: ContactUs
     },
 
     {
