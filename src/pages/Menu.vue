@@ -215,7 +215,8 @@ export default {
     },
     getStorageKeys() {
       this.vueLocalStorage = Object.keys(localStorage)
-    }
+    },
+
 
 
   },

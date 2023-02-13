@@ -13,7 +13,8 @@
                 </div>
               </div>
             </div>
-          <div class="text-center"> <button @click="clearCart()">Resetta</button> <button>Compra</button></div>
+            <div>{{ store.totalPrice }}</div>
+          <div class="text-center"> <button @click="clearCart()">Resetta</button> <router-link :to="{name : 'check-out'}"><button>Compra</button></router-link></div>
         </div>
 
        
@@ -50,7 +51,27 @@ import { store } from '../store'
             clearCart(){
             localStorage.clear()
             store.cart = [];
+            },
+            getTotal () {
+                let total = 0
+                for (let i = 0; i < store.cart.length; i++) {
+                    total += store.cart[i].price * store.cart[i].quantity
+                }
+                store.totalPrice = total
             }
+
+        },
+        watch: {
+            'store.cart': {
+            handler() {
+                this.getTotal()
+            },
+            deep: true
+            }
+        },
+        mounted(){
+            this.getTotal()
+
         }
     }
 </script>
