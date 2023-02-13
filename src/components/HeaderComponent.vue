@@ -1,25 +1,31 @@
 <template>
   <Transition name="scroll">
-    <nav
-      class="navbar bg-white nav-position d-flex"
-      v-show="showNav"
-      :class="{ 'nav-block': $route.name != 'home' }"
-    >
-      <div class="container-lg">
+    <nav class="navbar bg-white nav-position d-flex" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
+      <div class="container-lg menu-box">
+
         <router-link to="/" class="navbar-brand">
-          <img
-            src="img/dish-drop-rb-01.png"
-            alt="logo"
-            width="80"
-            height="80"
-          />
+          <img src="img/dish-drop-rb-01.png" alt="logo" width="80" height="80" />
         </router-link>
-        <div class="navbar-menu  pippo " >
+
+
+        <div class="menu-link">
           <router-link to="/restaurants">Tutti i Ristoranti </router-link>
           <router-link to="/reviewers">Scrivici una recenzione</router-link>
         </div>
+
+        <Transition name="menu">
+          <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
+            <router-link to="/restaurants">Tutti i Ristoranti </router-link>
+            <router-link to="/reviewers">Scrivici una recenzione</router-link>
+          </div>
+        </Transition>
+
+        <div class="hamburger" @click="menuToggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
       </div>
-      
+
     </nav>
   </Transition>
 </template>
@@ -31,7 +37,7 @@ export default {
   data() {
     return {
       showNav: false,
-      
+      showDropDown: false,
     };
   },
 
@@ -41,15 +47,12 @@ export default {
     } else {
       this.showNav = true;
     }
-   ;
-   
-
   },
 
 
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
-    
+
   },
 
   computed: {},
@@ -62,6 +65,15 @@ export default {
         this.showNav = false;
       }
     },
+
+
+    menuToggle() {
+
+      this.showDropDown = !this.showDropDown;
+
+
+    }
+
   },
 };
 </script>
@@ -79,15 +91,87 @@ export default {
   transform: translateY(-100%);
 }
 
+
 .nav-position {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 10000;
+
+
+  .menu-link,
+  .dropdown-link {
+
+    font-weight: $font-w-md;
+
+    a:first-child {
+      margin-right: 8px;
+    }
+
+  }
+
+  .dropdown-link {
+    display: none;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
 }
 
 .nav-block {
   position: sticky;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .nav-position {
+
+
+    .menu-box {
+      position: relative;
+
+
+      .menu-link {
+        display: none;
+      }
+
+      .dropdown-link {
+
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transform: translateY(100%);
+        background-color: $white;
+        text-align: center;
+        transition: all 1s cubic-bezier(.215, .61, .355, 1);
+
+        a {
+          display: block;
+          padding: 6px
+        }
+
+      }
+
+      .open {
+        max-height: 200px;
+      }
+
+      .hamburger {
+        display: block;
+        cursor: pointer;
+      }
+
+    }
+
+  }
 }
 </style>
