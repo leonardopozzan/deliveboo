@@ -5,7 +5,7 @@
             <div
                 class="primary-section d-flex flex-column flex-md-row align-items-center justify-content-md-between align-items-md-center mb-md-4">
                 <div class="col-4 col-sm-2 mb-4">
-                    <img src="img/dish-drop-rw-01.png" alt="logo">
+                    <img src="/img/dish-drop-rw-01.png" alt="logo">
                 </div>
                 <div class="icons">
                     <a href="#nogo"><i class="fa-brands fa-square-facebook"></i></a>
