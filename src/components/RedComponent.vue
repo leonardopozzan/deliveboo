@@ -1,8 +1,6 @@
 <template>
     <div class="jumbo-restaurant">
-        <div class="container">
-            <img class="img-logo ms-4" src="../assets/img/dishdrop-bianco-arancione.png" alt="">
-        </div>
+        
         
     </div>
 
@@ -31,15 +29,15 @@ import{store} from '../store';
 </script>
 
 <style lang="scss" scoped>
-
+@use '../assets/styles/partials/_variables' as *;
+@use '../assets/styles/partials/_mixins' as *;
 .jumbo-restaurant{
-    background-color: red;
+    background-color: $red;
     width: 100%;
     position:relative;
-    .img-logo{
-        width:70px;
+height: 80px;
         
-    }
+    
     
 
 }
