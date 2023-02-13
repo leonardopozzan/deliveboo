@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div id="box-primary">
     <HeaderComponent></HeaderComponent>
     <RedComponent></RedComponent>
-    <div class="container py-3"  v-if="menu">
-      <div class="d-flex flex-wrap">
-  
+    <div class="container py-3" v-if="menu">
+      <div class="d-flex flex-wrap justify-content-between">
+
         <div class="menu">
-  
+
           <div>
             <div class="d-flex judtify-content-center align-items-center box-info">
               <div class="restaurant-img-box col-4 p-2">
@@ -17,7 +17,8 @@
                 <span v-for="(tipo, index) in menu.types" class="text-capitalize">
                   {{ index<menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
                     <div v-if="isIntervalActive()">
-                      <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante aperto</span>
+                      <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante
+                        aperto</span>
                     </div>
                     <div v-else>
                       <span class="text-danger"><i class="fa-solid fa-circle text-danger"> </i> Ristorante chiuso ,
@@ -25,27 +26,29 @@
                     </div>
               </div>
             </div>
-            <div class="row">
-              <div v-for="(dish, i) in menu.dishes" class="col-12 col-md-6 my-card" :key="i">
-                <div class="inner-card">
-                  <div class="img-box"><img :src="`${store.imagBasePath}${dish.image}`" alt=""></div>
-                  <div class="p-2">
-                    <div>{{ dish.name }}</div>
-                    <div>{{ dish.price }} &nbsp;&euro;  </div>
-                    <div>{{ dish.ingredients }}</div>
+            <div class="row g-3 mt-3">
+              <div v-for="(dish, i) in menu.dishes" class="col-12 col-lg-6 my-card" :key="i">
+                <div class="inner-card d-flex">
+                  <div class="img-box col-5"><img :src="`${store.imagBasePath}${dish.image}`" alt=""></div>
+                  <div class="px-3 pt-2 col-7">
+                    <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
+                    <div>{{ dish.price }} &nbsp;&euro; </div>
+                    <div class="ingredients">{{ dish.ingredients }}</div>
                   </div>
-                  <button :disabled="vueLocalStorage.includes(dish.slug)" :class="{ 'color-red' : vueLocalStorage.includes(dish.slug)}" @click="tryAddToCart(dish)"><i class="fa-solid fa-cart-shopping"></i></button>
+                  <button :disabled="vueLocalStorage.includes(dish.slug)"
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish)"><i
+                      class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
             </div>
           </div>
-  
+
         </div>
-  
+
         <div class="cart">
-          <CartComponent/>
+          <CartComponent />
         </div>
-  
+
         <!-- <div v-for="(category, i) in categories" :key="i">
           <div v-if="restaurantCategories.includes(category.name)">
             <h2 class="title" >{{ category.name }}</h2>
@@ -64,9 +67,9 @@
             </div>
           </div>
         </div> -->
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -86,16 +89,16 @@ export default {
       menu: null,
       categories: [],
       restaurantCategories: [],
-      restaurantMenu : null,
-      vueLocalStorage : ''
+      restaurantMenu: null,
+      vueLocalStorage: ''
     };
   },
-  watch:{
-    'store.cart':{
-      handler(){
+  watch: {
+    'store.cart': {
+      handler() {
         this.getStorageKeys()
       },
-      deep:true
+      deep: true
     }
   },
   mounted() {
@@ -109,12 +112,12 @@ export default {
     getAllCart() {
       let storage = []
       let keys = Object.keys(localStorage)
-      for(let i= 0; i < keys.length; i++){
+      for (let i = 0; i < keys.length; i++) {
         storage.push(JSON.parse(localStorage.getItem(keys[i])))
       }
       return storage;
-      },
-    
+    },
+
   },
   methods: {
     getDishes() {
@@ -135,7 +138,7 @@ export default {
             //   if(i == 0){
             //     item.category = this.menu.dishes[i].category.name
             //   }
-              
+
             //   if(item.category == this.menu.dishes[i].category.name){
             //     item.dishes.push(this.menu.dishes[i])
             //   }else{
@@ -174,22 +177,22 @@ export default {
       const closingTime = parseInt(this.menu.closing_hours.split(":")[0]) + parseInt(this.menu.closing_hours.split(":")[1]) / 60;
       return currentTime >= openingTime && currentTime <= closingTime;
     },
-    tryAddToCart(dish){
+    tryAddToCart(dish) {
       // console.log(localStorage)
-      if(localStorage.length){
+      if (localStorage.length) {
         const keys = Object.keys(localStorage)
-        const restaurantId =  JSON.parse(localStorage.getItem(keys[0])).restaurant_id
-        if(dish.restaurant_id != restaurantId){
+        const restaurantId = JSON.parse(localStorage.getItem(keys[0])).restaurant_id
+        if (dish.restaurant_id != restaurantId) {
           this.sendError()
           return
-        }else{
+        } else {
           this.addToCart(dish)
           return
         }
       }
       this.addToCart(dish)
     },
-    addToCart(dish){
+    addToCart(dish) {
       dish.quantity = 1
       store.cart.push(dish)
       localStorage.setItem(dish.slug, JSON.stringify(dish))
@@ -201,7 +204,7 @@ export default {
         timer: 1500
       });
     },
-    sendError(){
+    sendError() {
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -210,71 +213,141 @@ export default {
         timer: 2000
       });
     },
-    getStorageKeys(){
-        this.vueLocalStorage =  Object.keys(localStorage)
-      }
-    
-    
+    getStorageKeys() {
+      this.vueLocalStorage = Object.keys(localStorage)
+    }
+
+
   },
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 @use '../assets/styles/partials/_variables' as *;
 
-.menu{
-  width: 55%;
+.menu {
+  width: 65%;
   display: flex;
   align-items: flex-start;
+
   .box-info {
-  border: 1px solid rgba(99, 98, 98, 0.346);
-  border-radius: 10px;
-}
+    border: 1px solid rgba(99, 98, 98, 0.346);
+    border-radius: 10px;
+  }
 }
 
-.cart{
+.cart {
   width: 35%;
 }
 
 
-.title{
+.title {
   text-transform: capitalize;
 }
 
-  .my-card{
-    padding: 1rem;
+.my-card {
+  // padding: 1rem;
 
-    .color-red{
-      color: $red!important;
-    }
-    .inner-card{
-      padding: 0.7rem;
-      position: relative;
-      background-color: $white;
-      display: flex;
-      align-items: flex-start;
+  .color-red {
+    color: $red !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 
-      .img-box{
-        width: 140px;
-        img{
-          width: 100%;
-          height: 100%;
-        }
-      }
-      button{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        border: 0;
-        background-color: $orange;
-        height: 45px;
-        width: 45px;
-        border-radius: 50%;
-        font-size: 1.2rem;
-        color: $white;
-      }
+  .inner-card {
+    padding: 0.7rem;
+    position: relative;
+    background-color: $white;
+    border-radius: 6px;
+    cursor: pointer;
+    height: 158px;
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
+
+    &:hover button {
+      cursor: pointer;
+      visibility: visible;
+      opacity: 1;
     }
+
+
+    .img-box {
+      // width: 140px;
+      height: 136px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+    }
+
+    .ingredients {
+      overflow: auto;
+      height: 65px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+    }
+
+    button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 0;
+      background-color: $orange;
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      color: $white;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(.215, .61, .355, 1);
+    }
+
+  }
 }
 
+
+@media (max-width: 768px) {
+
+
+  #box-primary {
+    position: relative;
+
+    .menu {
+
+      width: 100%;
+    }
+
+    .cart {
+      // display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 10001;
+      display: none;
+
+      .my-cart {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+
+        .inner-cart {
+          height: 100%;
+        }
+
+      }
+
+    }
+  }
+
+}
 </style>
