@@ -17,8 +17,10 @@
 
         <Transition name="menu">
           <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
-            <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
-            <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
+            <div>
+              <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+              <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
+            </div>
           </div>
         </Transition>
 
@@ -147,7 +149,6 @@ export default {
 
   .dropdown-link {
     display: none;
-    padding: 12px;
   }
 
   .hamburger {
@@ -189,11 +190,16 @@ export default {
         text-align: center;
         transition: all 1s cubic-bezier(.215, .61, .355, 1);
 
-        a {
-          display: block;
-          padding: 6px
-        }
+        div {
+          padding: 18px 0;
 
+
+          a {
+            display: block;
+            margin-bottom: 6px;
+          }
+
+        }
       }
 
       .open {
