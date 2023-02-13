@@ -28,9 +28,12 @@
             <div class="row">
               <div v-for="(dish, i) in menu.dishes" class="col-12 col-md-6 my-card" :key="i">
                 <div class="inner-card">
-                  <div>{{ dish.name }}</div>
-                  <div>{{ dish.price }} &nbsp;&euro;  </div>
-                  <div>{{ dish.ingredients }}</div>
+                  <div class="img-box"><img :src="`${store.imagBasePath}${dish.image}`" alt=""></div>
+                  <div class="p-2">
+                    <div>{{ dish.name }}</div>
+                    <div>{{ dish.price }} &nbsp;&euro;  </div>
+                    <div>{{ dish.ingredients }}</div>
+                  </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)" :class="{ 'color-red' : vueLocalStorage.includes(dish.slug)}" @click="tryAddToCart(dish)"><i class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
@@ -249,6 +252,16 @@ export default {
       padding: 0.7rem;
       position: relative;
       background-color: $white;
+      display: flex;
+      align-items: flex-start;
+
+      .img-box{
+        width: 140px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
       button{
         position: absolute;
         top: 10px;
