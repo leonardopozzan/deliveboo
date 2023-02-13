@@ -1,6 +1,6 @@
 <template>
   <Transition name="scroll">
-    <nav class="navbar bg-white nav-position d-flex" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
+    <nav class="navbar bg-white nav-position" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
       <div class="container-lg menu-box">
 
         <router-link to="/" class="navbar-brand">
@@ -9,14 +9,14 @@
 
 
         <div class="menu-link">
-          <router-link to="/restaurants">Tutti i Ristoranti </router-link>
-          <router-link to="/reviewers">Scrivici una recenzione</router-link>
+          <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+          <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
         </div>
 
         <Transition name="menu">
           <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
-            <router-link to="/restaurants">Tutti i Ristoranti </router-link>
-            <router-link to="/reviewers">Scrivici una recenzione</router-link>
+            <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+            <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
           </div>
         </Transition>
 
@@ -109,10 +109,43 @@ export default {
       margin-right: 8px;
     }
 
+    a:hover {
+      color: $black;
+    }
+
+    a span {
+
+      position: relative;
+      padding-bottom: 6px;
+      padding-inline: 6px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: $black;
+        transition: all 0.6s cubic-bezier(.215, .61, .355, 1);
+      }
+
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+
+
+    }
+
+
   }
 
   .dropdown-link {
     display: none;
+    padding: 12px;
   }
 
   .hamburger {
