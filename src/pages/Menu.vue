@@ -224,7 +224,7 @@ export default {
 @use '../assets/styles/partials/_variables' as *;
 
 .menu{
-  width: 70%;
+  width: 55%;
   display: flex;
   align-items: flex-start;
   .box-info {
@@ -234,7 +234,7 @@ export default {
 }
 
 .cart{
-  width: 30%;
+  width: 35%;
 }
 
 
