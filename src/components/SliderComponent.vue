@@ -18,6 +18,14 @@
             spaceBetween: 20,
         },
     }" navigation @swiper="onSwiper" @slideChange="onSlideChange">
+        <swiper-slide>
+            <div class="slide-image" @click="resetType()">
+                <img src="/img/dd-slide.png" alt="alltype">
+                <div class="slide-type">
+                    <h6>Guarda tutti i ristoranti</h6>
+                </div>
+            </div>
+        </swiper-slide>
         <swiper-slide v-for="(type, i) in  types">
             <div class="slide-image" @click="getRestaurantbyTypes(type.id)">
                 <div v-if="type.image"><img :src="`${imgUrl}${type.image}`" alt=""></div>
@@ -26,14 +34,6 @@
                 </div>
             </div>
 
-        </swiper-slide>
-        <swiper-slide>
-            <div class="slide-image" @click="resetType()">
-                <img src="/img/dd-slide.png" alt="alltype">
-                <div class="slide-type">
-                    <h6>Guarda tutti i ristoranti</h6>
-                </div>
-            </div>
         </swiper-slide>
     </swiper>
 </template>

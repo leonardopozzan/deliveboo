@@ -1,20 +1,27 @@
 <template>
-    <h2>Cibo a domicilio per veri FoodLovers</h2>
-    <p>Voglia di pizza o hamburger? Oppure oggi sei da cucina fusion? Essere food lovers vuol dire sperimentare sapori
-        nuovi ogni giorno ! Ricevi il cibo a domicilio più adatto alla tua giornata !</p>
-    <div class="d-flex  flex-wrap  align-items-center  justify-content-evenly">
-        <div v-for="(image, index) in pathHomeImg" :key="index" class="col-5  my-3 my-info">
-            <img class="info-img" :src="image.img" alt="">
-            <div class="triangolo">
+    <div class="container-sm mb-4">
+        <h2>Cibo a domicilio per veri FoodLovers</h2>
+        <p>Voglia di pizza o hamburger? Oppure oggi sei da cucina fusion? Essere food lovers vuol dire sperimentare
+            sapori
+            nuovi ogni giorno ! Ricevi il cibo a domicilio più adatto alla tua giornata !</p>
+    </div>
+    <div class="container-sm">
+        <div class="row gy-4 g-md-3">
+            <div v-for="(image, index) in pathHomeImg" :key="index" class="col-12 col-lg-6 my-info">
+                <div class="col-container">
+                    <img class="info-img" :src="image.img" alt="">
+                    <div class="triangolo">
 
+                    </div>
+                    <div class="info-info">
+                        <h3>{{ image.title }}</h3>
+                        <p>{{ image.desc }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="info-info">
-                <h3>{{ image.title }}</h3>
-                <p>{{ image.desc }}</p>
-            </div>
+
+
         </div>
-
-
     </div>
 
 
@@ -49,15 +56,31 @@ p {
 }
 
 .my-info {
-    position: relative;
-    overflow: hidden;
 
-    .info-img {
-        max-width: fit-content;
-        width: 670px;
-        height: 425px;
-        object-fit: cover
+    &:hover .triangolo {
+        opacity: 1;
     }
+
+    .col-container {
+
+        overflow: hidden;
+        position: relative;
+
+
+        img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+    }
+
+    // .info-img {
+    //     max-width: fit-content;
+    //     width: 670px;
+    //     height: 425px;
+    //     object-fit: cover
+    // }
 
     .triangolo {
 
