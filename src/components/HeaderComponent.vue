@@ -12,7 +12,7 @@
 
         <div class="menu-link">
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
-          <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
+          <router-link to="/reviewers"><span>Scrivici una recensione</span></router-link>
         </div>
 
         <Transition name="menu">
