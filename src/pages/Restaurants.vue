@@ -6,10 +6,19 @@
                 <SliderComponent :types="types" :imgUrl="store.imagBasePath"></SliderComponent>
             </div>
             <div class="cards-box container-lg py-4">
-                <div class="row g-3">
+                <div v-if="restaurants.length" class="row g-3">
                     <RestaurantCardComponent v-for="(restaurant, i) in restaurants" :restaurant="restaurant"
                         :types=types>
                     </RestaurantCardComponent>
+                </div>
+                <div v-else class="container-loader loader">
+                    <span>L</span>
+                    <span>O</span>
+                    <span>A</span>
+                    <span>D</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
                 </div>
             </div>
         </div>
@@ -38,14 +47,15 @@ export default {
     },
 
     mounted() {
-        this.getRestaurants();
+        setTimeout(this.getRestaurants, 2500);
+        //this.getRestaurants();
         this.getRestaurantsTypes();
     },
 
 
     methods: {
         getRestaurants() {
-            axios.get(this.store.apiBaseUrl + "/restaurants",store.data).then(response => {
+            axios.get(this.store.apiBaseUrl + "/restaurants", store.data).then(response => {
                 this.restaurants = response.data.results;
                 // console.log(response.data.results);
             });
@@ -60,12 +70,12 @@ export default {
 
 
     },
-    watch:{
-        "store.data":{
-            handler(){
+    watch: {
+        "store.data": {
+            handler() {
                 this.getRestaurants();
             },
-            deep:true,
+            deep: true,
         }
     }
 }
@@ -75,5 +85,88 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '../assets/styles/partials/_mixins' as *;
+@use '../assets/styles/partials/_variables' as *;
 
+div {
+    .container-fluid {
+        .cards-box {
+            .container-loader {
+                text-align: center;
+                color: $red;
+                font-size: 60px;
+                margin: 30px 0;
+
+                // .box-loading {
+                //     animation: spin 1s linear infinite;
+                // }
+
+                // @keyframes spin {
+                //     0% {
+                //         transform: rotate(1turn);
+                //     }
+
+                //     90% {
+                //         transform: rotate(90deg);
+                //     }
+                // }
+            }
+        }
+    }
+}
+
+.loader {
+    -webkit-perspective: 700px;
+    perspective: 700px;
+}
+
+.loader>span {
+    font-size: 130px;
+    font-family: "franklin gothic medium", sans-serif;
+    display: inline-block;
+    animation: flip 2.6s infinite linear;
+    transform-origin: 0 70%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+}
+
+@keyframes flip {
+    35% {
+        transform: rotateX(360deg);
+    }
+
+    100% {
+        transform: rotatex(360deg);
+    }
+}
+
+
+.loader>span:nth-child(even) {
+    color: $orange;
+
+}
+
+.loader>span:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.loader>span:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.loader>span:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+.loader>span:nth-child(5) {
+    animation-delay: 1.2s;
+}
+
+.loader>span:nth-child(6) {
+    animation-delay: 1.5s
+}
+
+.loader>span:nth-child(7) {
+    animation-delay: 1.8s
+}
 </style>
