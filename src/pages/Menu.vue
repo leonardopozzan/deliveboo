@@ -21,7 +21,8 @@
                         aperto</span>
                     </div>
                     <div v-else>
-                      <span class="text-danger"><i class="fa-solid fa-circle text-danger"> </i> Ristorante chiuso ,
+                      <span class="text-danger"><i class="fa-solid fa-circle text-danger"> </i> Ristorante chiuso apre
+                        alle {{ menu.opening_hours.slice(0, 5) }},
                         preordina</span>
                     </div>
               </div>
@@ -29,7 +30,10 @@
             <div class="row g-3 mt-3">
               <div v-for="(dish, i) in menu.dishes" class="col-12 col-lg-6 my-card" :key="i">
                 <div class="inner-card d-flex">
-                  <div class="img-box col-5"><img :src="`${store.imagBasePath}${dish.image}`" alt=""></div>
+                  <div class="img-box col-5">
+                    <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
+                    <img v-else src="/img/dd-slide.png" alt="">
+                  </div>
                   <div class="px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
                     <div>{{ dish.price }} &nbsp;&euro; </div>

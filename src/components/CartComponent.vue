@@ -1,11 +1,15 @@
 <template>
     <div class="my-cart">
+
         <div class="inner-cart d-flex flex-column justify-content-between">
             <i class="fa-solid fa-arrow-left" @click="store.cartShow = false"></i>
             <h2 class="text-center">Il tuo ordine</h2>
             <div class="py-3 items-box">
                 <div v-for="(item, i) in store.cart" class="cart-item">
-                    <div class="img-box"><img :src="`${store.imagBasePath}${item.image}`"></div>
+                    <div class="img-box">
+                        <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
+                        <img v-else src="/img/dd-slide.png" alt="">
+                    </div>
                     <div class="text-capitalize me-3">{{ item.name }} </div>
                     <div class="d-flex">
                         <button @click="removeQuantity(item, i)"> - </button>
@@ -19,6 +23,7 @@
                 <button>Compra</button>
             </div>
             <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
+
         </div>
 
 
@@ -67,6 +72,7 @@ export default {
     padding: 0 1rem 1rem 1rem;
 
     .inner-cart {
+
         min-height: 286px;
         max-height: 624px;
         overflow: hidden;
@@ -94,6 +100,7 @@ export default {
             display: none;
         }
 
+
         button {
             border: 0;
             background-color: $white;
@@ -101,6 +108,7 @@ export default {
 
             &:hover {
                 background-color: $orange;
+
             }
         }
 
@@ -199,6 +207,7 @@ export default {
             }
 
         }
+
 
     }
 }

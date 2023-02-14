@@ -12,9 +12,11 @@
 
         <div class="menu-link">
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
-          <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
+
+          <router-link to="/reviewers"><span>Scrivici una recensione</span></router-link>
           <button><span class="dot" v-show="store.cart.length >= 1"></span><i
               class="fa-solid fa-cart-shopping"></i></button>
+
         </div>
 
         <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
