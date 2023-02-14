@@ -12,20 +12,24 @@
 
         <div class="menu-link">
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+
           <router-link to="/reviewers"><span>Scrivici una recensione</span></router-link>
+          <button><span class="dot" v-show="store.cart.length >= 1"></span><i
+              class="fa-solid fa-cart-shopping"></i></button>
+
         </div>
 
-        <Transition name="menu">
-          <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
-            <div>
-              <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
-              <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
-            </div>
+        <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
+          <div>
+            <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+            <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
           </div>
-        </Transition>
+        </div>
 
-        <div class="hamburger" @click="menuToggle">
-          <i class="fa-solid fa-bars"></i>
+        <div class="hamburger">
+          <i class="fa-solid fa-bars" @click="menuToggle"></i>
+          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1"></span><i
+              class="fa-solid fa-cart-shopping"></i></button>
         </div>
 
       </div>
@@ -35,6 +39,8 @@
 </template>
 
 <script>
+import { store } from '../store';
+
 export default {
   name: "HeaderComponent",
 
@@ -42,6 +48,7 @@ export default {
     return {
       showNav: false,
       showDropDown: false,
+      store,
     };
   },
 
@@ -76,10 +83,18 @@ export default {
       this.showDropDown = !this.showDropDown;
 
 
-    }
+    },
 
+
+    showCart() {
+      if (this.$route.name === "menu") {
+        this.store.cartShow = !this.store.cartShow;
+
+      };
+
+    },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -104,46 +119,51 @@ export default {
   z-index: 10000;
 
 
-  .menu-link,
-  .dropdown-link {
+  .menu-box {
 
-    font-weight: $font-w-md;
 
-    a:first-child {
-      margin-right: 8px;
-    }
+    .menu-link,
+    .dropdown-link {
 
-    a:hover {
-      color: $black;
-    }
+      font-weight: $font-w-md;
 
-    a span {
-
-      position: relative;
-      padding-bottom: 6px;
-      padding-inline: 6px;
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: $black;
-        transition: all 0.6s cubic-bezier(.215, .61, .355, 1);
+      a:first-child {
+        margin-right: 8px;
       }
 
+      a:hover {
+        color: $black;
+      }
 
-      &:hover {
+      a span {
+
+        position: relative;
+        padding-bottom: 6px;
+        padding-inline: 6px;
+
         &::after {
-          width: 100%;
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: $black;
+          transition: all 0.6s cubic-bezier(.215, .61, .355, 1);
         }
+
+
+        &:hover {
+          &::after {
+            width: 100%;
+          }
+        }
+
+
       }
 
 
     }
-
 
   }
 
@@ -155,6 +175,31 @@ export default {
     display: none;
   }
 
+
+  .menu-link button,
+  .hamburger button {
+
+    margin-left: 16px;
+    background-color: transparent;
+    border: 0;
+    color: $orange;
+    position: relative;
+
+
+    .dot {
+      display: block;
+      width: 10px;
+      height: 10px;
+      background-color: $red;
+      border-radius: 50%;
+      position: absolute;
+      top: -1px;
+      right: 0;
+    }
+
+  }
+
+
 }
 
 .nav-block {
@@ -163,13 +208,12 @@ export default {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 1224px) {
 
   .nav-position {
 
 
     .menu-box {
-      position: relative;
 
 
       .menu-link {
@@ -185,7 +229,7 @@ export default {
         width: 100%;
         max-height: 0;
         overflow: hidden;
-        transform: translateY(100%);
+        transform: translateY(98%);
         background-color: $white;
         text-align: center;
         transition: all 1s cubic-bezier(.215, .61, .355, 1);

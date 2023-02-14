@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ 'cartTest': store.cartShow }">
     <router-view></router-view>
     <FooterComponent></FooterComponent>
   </div>
@@ -8,6 +8,7 @@
 <script>
 import { RouterView } from 'vue-router';
 import FooterComponent from './components/FooterComponent.vue';
+import { store } from './store';
 
 export default {
   name: 'App',
@@ -17,9 +18,18 @@ export default {
     FooterComponent,
   },
 
+  data() {
+    return {
+      store,
+    }
+  }
+
 }
 </script>
 
 <style lang="scss" scoped>
-
+.cartTest {
+  height: 100vh;
+  overflow: hidden;
+}
 </style>
