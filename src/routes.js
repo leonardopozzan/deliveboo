@@ -5,6 +5,7 @@ import Menu from './pages/Menu.vue';
 import ContactUs from './pages/ContactUs.vue';
 import CheckOutPage from './pages/CheckOutPage.vue';
 import NotFoundPage from './pages/NotFoundPage.vue';
+import ReviewPage from './pages/ReviewPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,13 +23,13 @@ const router = createRouter({
     },
 
     {
-      path: '/menu',
+      path: '/restaurants/:slug',
       name: 'menu',
       component: Menu,
     },
 
     {
-      path: '/check-out',
+      path: '/restaurants/:slug/checkout',
       name: 'check-out',
       component: CheckOutPage,
     },
@@ -40,10 +41,16 @@ const router = createRouter({
     },
 
     {
-      path: '/:pathMatch(.)',
-      name: 'not-found',
+      path: '/:pathMatch(.*)*',
+      name: 'notfound',
       component: NotFoundPage,
     },
+    {
+      path: '/reviews',
+      name: 'reviews',
+      component:ReviewPage, 
+    }
+    
   ]
 })
 

@@ -1,3 +1,6 @@
+@use './partials/_variables' as *;
+@use './partials/_mixins' as *;
+
 @import 'bootstrap/scss/bootstrap.scss';
 
 $fa-font-path : "../webfonts";
@@ -5,6 +8,15 @@ $fa-font-path : "../webfonts";
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+
+body {
+    background-color: $body-background;
+    font-family: 'Montserrat', sans-serif;
+}
 
 
 ul {
