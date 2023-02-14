@@ -18,7 +18,7 @@
             spaceBetween: 20,
         },
     }" navigation @swiper="onSwiper" @slideChange="onSlideChange">
-        <swiper-slide>
+        <swiper-slide :class="{ 'active': store.data.params.typeFilter.length == 0 }">
             <div class="slide-image" @click="resetType()">
                 <img src="/img/dd-slide.png" alt="alltype">
                 <div class="slide-type">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </swiper-slide>
-        <swiper-slide v-for="(type, i) in  types">
+        <swiper-slide v-for="(type, i) in  types" :class="{ 'active': store.data.params.typeFilter.includes(type.id) }">
             <div class="slide-image" @click="getRestaurantbyTypes(type.id)">
                 <div v-if="type.image"><img :src="`${imgUrl}${type.image}`" alt=""></div>
                 <div class="slide-type">
@@ -80,15 +80,22 @@ export default {
     },
     methods: {
         getRestaurantbyTypes(id) {
-            store.data.params.typeFilter = id;
-            // console.log(store.data.params.typeFilter);
+            if (!store.data.params.typeFilter.includes(id)) {
+
+                store.data.params.typeFilter.push(id);
+            } else {
+                store.data.params.typeFilter.splice(store.data.params.typeFilter.indexOf(id), 1);
+            }
         },
+
         resetType() {
-            store.data.params.typeFilter = '';
+            store.data.params.typeFilter = [];
         }
-    }
+    },
+
 
 }
+
 
 
 
@@ -104,6 +111,7 @@ export default {
         border-radius: 6px;
         overflow: hidden;
         cursor: pointer;
+        opacity: 0.6;
 
         .slide-image {
             height: 134px;
@@ -134,6 +142,10 @@ export default {
             }
         }
 
+    }
+
+    .active {
+        opacity: 1;
     }
 
 }
