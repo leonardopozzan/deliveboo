@@ -8,7 +8,7 @@
         <div class="menu">
 
           <div>
-            <div class="d-flex judtify-content-center align-items-center box-info">
+            <div class="d-flex align-items-center box-info">
               <div class="restaurant-img-box col-4 p-2">
                 <img :src="`${store.imagBasePath}${menu.image}`" :alt="menu.name" />
               </div>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="cart">
+        <div class="cart" :class="{ 'show': store.cartShow }">
           <CartComponent />
         </div>
 
@@ -314,15 +314,18 @@ export default {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1224px) {
 
 
   #box-primary {
+
     position: relative;
+    height: 100%;
 
     .menu {
 
       width: 100%;
+      display: block !important;
     }
 
     .cart {
@@ -333,12 +336,16 @@ export default {
       width: 100%;
       height: 100vh;
       z-index: 10001;
+      background-color: rgba(0, 0, 0, 0.3);
       display: none;
 
       .my-cart {
-        width: 100%;
-        height: 100%;
-        padding: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        min-height: 324px;
 
         .inner-cart {
           height: 100%;
@@ -346,6 +353,10 @@ export default {
 
       }
 
+    }
+
+    .show {
+      display: block;
     }
   }
 
