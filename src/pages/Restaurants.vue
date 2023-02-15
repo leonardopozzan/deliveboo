@@ -55,7 +55,24 @@ export default {
 
     methods: {
         getRestaurants() {
-            axios.get(this.store.apiBaseUrl + "/restaurants", store.data).then(response => {
+
+            // this.$route.query.types.split('+')
+
+            const data = {
+
+                params: {
+                    typeFilter: [],
+                }
+
+            }
+            if (this.$route.query.type) {
+
+                data.params.typeFilter = this.$route.query.type.split('+');
+
+            }
+
+
+            axios.get(this.store.apiBaseUrl + "/restaurants", data).then(response => {
                 this.restaurants = response.data.results;
                 console.log(response.data.results);
             });
@@ -76,8 +93,14 @@ export default {
                 this.getRestaurants();
             },
             deep: true,
+        },
+
+        '$route': function () {
+            this.getRestaurants();
+
         }
     }
+
 }
 
 
