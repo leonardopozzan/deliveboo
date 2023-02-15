@@ -95,6 +95,8 @@ export default {
           timer: 2000
         });
         return;
+
+
       }
 
       // if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length != 0) {
