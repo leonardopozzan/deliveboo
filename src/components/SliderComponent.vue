@@ -118,7 +118,7 @@ export default {
         },
 
         resetType() {
-            this.$router.push({ path: this.$route.path, query: { type: '' } });
+            this.$router.push({ path: this.$route.path });
 
         }
     },
