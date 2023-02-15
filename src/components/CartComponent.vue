@@ -1,31 +1,37 @@
 <template>
-    <div class="my-cart">
 
-        <div class="inner-cart d-flex flex-column justify-content-between">
-            <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
-            <h2 class="text-center">Il tuo ordine</h2>
-            <div class="py-3 items-box">
-                <div v-for="(item, i) in store.cart" class="cart-item">
-                    <div class="img-box">
-                        <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
-                        <img v-else src="/img/dd-slide.png" alt="">
-                    </div>
-                    <div class="text-capitalize me-3">{{ item.name }} </div>
-                    <div class="d-flex">
-                        <button @click="removeQuantity(item, i)"> - </button>
-                        <span class="px-2">{{ item.quantity }}</span>
-                        <button @click="addQuantity(item, i)"> + </button>
+    <div class="cart" :class="{ 'show': store.cartShow }">
+
+
+        <div class="my-cart">
+
+            <div class="inner-cart d-flex flex-column justify-content-between">
+                <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
+                <h2 class="text-center">Il tuo ordine</h2>
+                <div class="py-3 items-box">
+                    <div v-for="(item, i) in store.cart" class="cart-item">
+                        <div class="img-box">
+                            <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
+                            <img v-else src="/img/dd-slide.png" alt="">
+                        </div>
+                        <div class="text-capitalize me-3">{{ item.name }} </div>
+                        <div class="d-flex">
+                            <button @click="removeQuantity(item, i)"> - </button>
+                            <span class="px-2">{{ item.quantity }}</span>
+                            <button @click="addQuantity(item, i)"> + </button>
+                        </div>
                     </div>
                 </div>
+                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
+                        @click="resetOrder()">Resetta</button>
+                    <router-link :to="{ name: 'check-out' }"><button>Compra</button></router-link>
+                </div>
+                <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
-            <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
-                    @click="resetOrder()">Resetta</button>
-                <router-link :to="{name : 'check-out'}"><button>Compra</button></router-link>
-            </div>
-            <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
+
+
         </div>
-        
-        
+
     </div>
 </template>
 
@@ -85,7 +91,7 @@ export default {
 
 
         },
-        getTotal () {
+        getTotal() {
             let total = 0
             for (let i = 0; i < store.cart.length; i++) {
                 total += store.cart[i].price * store.cart[i].quantity
@@ -93,24 +99,29 @@ export default {
             store.totalPrice = total
         }
 
-        },
-        watch: {
-            'store.cart': {
+    },
+    watch: {
+        'store.cart': {
             handler() {
                 this.getTotal()
             },
             deep: true
-            }
-        },
-        mounted(){
-            this.getTotal()
         }
+    },
+    mounted() {
+        this.getTotal()
     }
+}
 
 </script>
 
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_variables' as *;
+
+
+.cart {
+    width: 100%;
+}
 
 .my-cart {
     padding: 0 1rem 1rem 1rem;
@@ -212,6 +223,17 @@ export default {
 
 @media (max-width: 1224px) {
 
+    .cart {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1050;
+        background-color: rgba(0, 0, 0, 0.3);
+        display: none;
+
+    }
 
     .my-cart {
         position: absolute;
