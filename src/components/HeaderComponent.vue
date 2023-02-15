@@ -3,8 +3,6 @@
   <Transition name="scroll">
     <nav class="navbar bg-white nav-position" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
 
-      <CartComponent></CartComponent>
-
       <div class="container-lg menu-box">
 
 
@@ -45,6 +43,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import { store } from '../store';
 import CartComponent from './CartComponent.vue';
 
@@ -82,10 +81,29 @@ export default {
       this.showDropDown = !this.showDropDown;
     },
     showCart() {
-      if (window.innerWidth <= 1224) {
+      if (window.innerWidth <= 1224 && (this.$route.name == 'menu' || this.$route.name == 'check-out')) {
         this.store.cartShow = !this.store.cartShow;
+        return;
       }
+
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length == 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Il carrello e vuoto',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return;
+      }
+
+      // if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length != 0) {
+      //   console.log('ok');
+      //   this.$router.path({ name: 'check-out' });
+      //   return;
+      // }
     }
+
   },
   components: { CartComponent }
 }
