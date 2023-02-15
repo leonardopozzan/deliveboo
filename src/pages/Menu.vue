@@ -49,7 +49,7 @@
 
         </div>
 
-        <div class="cart" :class="{ 'show': store.cartShow }">
+        <div class="cart-box">
           <CartComponent />
         </div>
 
@@ -239,12 +239,14 @@ export default {
     border: 1px solid rgba(99, 98, 98, 0.346);
     border-radius: 10px;
   }
+
+
+
 }
 
-.cart {
+.cart-box {
   width: 35%;
 }
-
 
 .title {
   text-transform: capitalize;
@@ -350,21 +352,6 @@ export default {
       display: block !important;
     }
 
-    .cart {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 10001;
-      background-color: rgba(0, 0, 0, 0.3);
-      display: none;
-
-    }
-
-    .show {
-      display: block;
-    }
   }
 
 }

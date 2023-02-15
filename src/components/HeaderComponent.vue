@@ -2,6 +2,7 @@
 
   <Transition name="scroll">
     <nav class="navbar bg-white nav-position" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
+
       <div class="container-lg menu-box">
 
 
@@ -14,7 +15,7 @@
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
           <router-link to="/contact"><span>Contatti</span></router-link>
           <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
-          <button>
+          <button @click="showCart">
             <span class="dot" v-show="store.cart.length >= 1"></span>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
@@ -42,11 +43,12 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 import { store } from '../store';
+import CartComponent from './CartComponent.vue';
 
 export default {
   name: "HeaderComponent",
-
   data() {
     return {
       showNav: false,
@@ -54,49 +56,56 @@ export default {
       store,
     };
   },
-
   mounted() {
     if (this.$route.name === "home") {
       window.addEventListener("scroll", this.handleScroll);
-    } else {
+    }
+    else {
       this.showNav = true;
     }
   },
-
-
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
-
   },
-
   computed: {},
-
   methods: {
     handleScroll() {
       if (window.scrollY > 250) {
         this.showNav = true;
-      } else {
+      }
+      else {
         this.showNav = false;
       }
     },
-
-
     menuToggle() {
-
       this.showDropDown = !this.showDropDown;
-
-
     },
-
-
     showCart() {
-      if (this.$route.name === "menu") {
+      if (window.innerWidth <= 1224 && (this.$route.name == 'menu' || this.$route.name == 'check-out')) {
         this.store.cartShow = !this.store.cartShow;
+        return;
+      }
 
-      };
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length == 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Il carrello e vuoto',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        return;
+      }
 
-    },
+      // if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length != 0) {
+      //   console.log('ok');
+      //   this.$router.path({ name: 'check-out' });
+      //   return;
+      // }
+    }
+
   },
+  components: { CartComponent }
 }
 </script>
 
@@ -206,7 +215,7 @@ export default {
 
 
 
-@media (max-width: 1224px) {
+@media (max-width: 768px) {
 
   .nav-position {
 
