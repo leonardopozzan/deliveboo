@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
-                    @click="clearCart()">Resetta</button>
+                    @click="resetOrder()">Resetta</button>
                 <button>Compra</button>
             </div>
             <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
@@ -33,6 +33,8 @@
 
 <script>
 import { store } from '../store'
+import Swal from 'sweetalert2';
+
 export default {
     data() {
         return {
@@ -60,6 +62,27 @@ export default {
         clearCart() {
             localStorage.clear()
             store.cart = [];
+        },
+        resetOrder() {
+            Swal.fire({
+                title: 'Sei sicuro di annullare l\'ordine?',
+                text: "Non sarai più in grado di recuperarlo!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Annulla',
+                confirmButtonText: 'Si, cancella!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.clearCart();
+                    Swal.fire(
+                        'Eliminato!',
+                        'Il tuo ordine è stato cancellato.',
+                        'success'
+                    )
+                }
+            })
         }
     }
 }
