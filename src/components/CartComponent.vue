@@ -21,8 +21,8 @@
             <div>{{ store.totalPrice }}</div>
           <div class="text-center"> <button @click="clearCart()">Resetta</button> </div>
 
-            <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
-                    @click="clearCart()">Resetta</button>
+            <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> 
+                <button @click="clearCart()">Resetta</button>
                 <router-link :to="{name : 'check-out'}"><button>Compra</button></router-link>
             </div>
             <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
@@ -65,14 +65,14 @@ export default {
             localStorage.clear()
             store.cart = [];
 
-            },
-            getTotal () {
-                let total = 0
-                for (let i = 0; i < store.cart.length; i++) {
-                    total += store.cart[i].price * store.cart[i].quantity
-                }
-                store.totalPrice = total
+        },
+        getTotal () {
+            let total = 0
+            for (let i = 0; i < store.cart.length; i++) {
+                total += store.cart[i].price * store.cart[i].quantity
             }
+            store.totalPrice = total
+        }
 
         },
         watch: {
@@ -89,7 +89,7 @@ export default {
 
         }
     }
-}
+
 </script>
 
 <style lang="scss" scoped>
