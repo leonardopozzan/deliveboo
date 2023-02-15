@@ -350,7 +350,6 @@ export default {
     }
 
     .cart {
-      // display: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -359,20 +358,6 @@ export default {
       z-index: 10001;
       background-color: rgba(0, 0, 0, 0.3);
       display: none;
-
-      // .my-cart {
-      //   position: absolute;
-      //   top: 50%;
-      //   left: 50%;
-      //   transform: translate(-50%, -50%);
-      //   width: 90%;
-      //   min-height: 324px;
-
-      //   .inner-cart {
-      //     height: 100%;
-      //   }
-
-      // }
 
     }
 
