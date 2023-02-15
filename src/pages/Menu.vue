@@ -34,7 +34,7 @@
                     <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
                     <img v-else src="/img/dd-slide.png" alt="">
                   </div>
-                  <div class="px-3 pt-2 col-7">
+                  <div class="dish-info px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
                     <div>{{ dish.price }} &nbsp;&euro; </div>
                     <div class="ingredients">{{ dish.ingredients }}</div>
@@ -288,15 +288,17 @@ export default {
 
     }
 
-    .ingredients {
+    .dish-info {
       overflow: auto;
-      height: 65px;
 
       &::-webkit-scrollbar {
         display: none;
       }
 
+
     }
+
+
 
     button {
       position: absolute;
