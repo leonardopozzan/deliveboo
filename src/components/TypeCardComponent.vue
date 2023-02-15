@@ -5,8 +5,8 @@
   <div v-if="types.length" class=" row g-3">
 
     <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-12 col-md-6 col-lg-4">
-      <router-link to="/restaurants">
-        <div class="card my-cards" @click="getFilter(item.id)">
+      <router-link :to="{ name: 'restaurants', query: { type: item.slug } }">
+        <div class="card my-cards">
           <div class="img-typebox">
 
             <img class="img-type" :src="`http://127.0.0.1:8000/storage/${item.image}`" :alt="item.name" />
@@ -55,13 +55,6 @@ export default {
   methods: {
     showAll() {
       this.showAllTypes = !this.showAllTypes;
-    },
-    getFilter(id) {
-      store.data.params.typeFilter = id;
-
-
-
-
     },
   }
 };
