@@ -10,5 +10,10 @@ export const store = reactive({
 
     cart: [],
 
-    totalPrice: ''
+    totalPrice: '',
+
+    paymentStatus: null,
+
+    saveOrder: false,
+
 });

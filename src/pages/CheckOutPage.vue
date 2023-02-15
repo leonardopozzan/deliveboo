@@ -95,7 +95,11 @@
                 <a class="btn button credit-card mb-4" @click.prevent="purchase()">
                   <i class="fa-solid fa-credit-card"></i> Carta di Credito</a
                 >
+               
               </form>
+              <div>
+                <PaymentComponent/>
+              </div>
             </div>
           </div>
         </div>
@@ -103,6 +107,7 @@
           <CartComponent/>
         </div>
       </div>
+     
     </div>
     <div class="container container-monocard my-5 p-3">
       <div class="card card-help col-9 p-3">
@@ -138,10 +143,12 @@
   import RedComponent from "../components/RedComponent.vue";
   import { Manipulation } from "swiper";
   import CartComponent from "../components/CartComponent.vue";
+  import PaymentComponent from "../components/PaymentComponent.vue";
+
   
   export default {
     name: "CheckOutPage",
-    components: { HeaderComponent, RedComponent, CartComponent },
+    components: { HeaderComponent, RedComponent, CartComponent , PaymentComponent },
     data() {
       return {
         store,
@@ -200,7 +207,8 @@
           address : this.address,
           phoneNumber : this.phoneNumber,
           totalPrice : store.totalPrice,
-          cart : store.cart
+          cart : store.cart,
+          paymentStatus: store.paymentStatus
         }
         axios.post(`${store.apiBaseUrl}/purchase`, data,  {headers: { "Content-Type": "multipart/form-data" }}).then((response)=>{
           console.log(response.data.results)
@@ -210,6 +218,13 @@
 
       }
     },
+    watch: {
+      'store.saveOrder':{
+        handler(){
+          this.purchase()
+        }
+      }
+    }
   };
   </script>
   
