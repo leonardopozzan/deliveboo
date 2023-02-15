@@ -2,7 +2,7 @@
     <div class="my-cart">
 
         <div class="inner-cart d-flex flex-column justify-content-between">
-            <i class="fa-solid fa-arrow-left" @click="store.cartShow = false"></i>
+            <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
             <h2 class="text-center">Il tuo ordine</h2>
             <div class="py-3 items-box">
                 <div v-for="(item, i) in store.cart" class="cart-item">
@@ -214,10 +214,15 @@ export default {
 
 
     .my-cart {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        min-height: 324px;
 
         .inner-cart {
-
-
+            height: 100%;
             position: relative;
 
             i {
@@ -229,6 +234,10 @@ export default {
             }
 
         }
+    }
+
+    .show {
+        display: block;
     }
 }
 

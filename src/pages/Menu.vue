@@ -34,7 +34,7 @@
                     <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
                     <img v-else src="/img/dd-slide.png" alt="">
                   </div>
-                  <div class="px-3 pt-2 col-7">
+                  <div class="dish-info px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
                     <div>{{ dish.price }} &nbsp;&euro; </div>
                     <div class="ingredients">{{ dish.ingredients }}</div>
@@ -275,6 +275,9 @@ export default {
       opacity: 1;
     }
 
+    &:hover .dish-info::-webkit-scrollbar {
+      display: block;
+    }
 
     .img-box {
       // width: 140px;
@@ -289,15 +292,29 @@ export default {
 
     }
 
-    .ingredients {
+    .dish-info {
       overflow: auto;
-      height: 65px;
 
       &::-webkit-scrollbar {
         display: none;
+        width: 3px;
       }
 
+      &::-webkit-scrollbar-thumb {
+        background-color: $red;
+        border-radius: 30px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $border-grey;
+        border-radius: 30px;
+      }
+
+
+
     }
+
+
 
     button {
       position: absolute;
@@ -334,7 +351,6 @@ export default {
     }
 
     .cart {
-      // display: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -343,20 +359,6 @@ export default {
       z-index: 10001;
       background-color: rgba(0, 0, 0, 0.3);
       display: none;
-
-      .my-cart {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        min-height: 324px;
-
-        .inner-cart {
-          height: 100%;
-        }
-
-      }
 
     }
 
