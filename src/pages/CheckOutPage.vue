@@ -9,10 +9,12 @@
             <h3 class="py-2 text-bold text-center mb-3">Riepilogo ordine</h3>
             <div class="riepilogo-top d-flex justify-content-between">
               <div class="info-restaurant d-flex">
-                <img
-                  :src="`${store.imagBasePath}${menu.image}`"
-                  :alt="menu.name"
-                />
+                <div v-if="menu.image">
+                  <img
+                    :src="`${store.imagBasePath}${menu.image}`"
+                    :alt="menu.name"
+                  />
+                </div>
                 <div>
                   <h4 class="px-2">{{ menu.name }}</h4>
                   <p class="px-2 text-uppercase">
@@ -47,6 +49,7 @@
                     id="name"
                     placeholder="Nome e cognome"
                     required
+                    v-model="name"
                   />
                 </div>
                 <p class="mx-1 text-uppercase">E-mail *</p>
@@ -58,6 +61,8 @@
                     id="email"
                     placeholder="E-mail"
                     required
+                    v-model="email"
+
                   />
                 </div>
                 <p class="mx-1 text-uppercase">Indirizzo *</p>
@@ -69,6 +74,8 @@
                     id="address"
                     placeholder="Indirizzo"
                     required
+                    v-model="address"
+
                   />
                 </div>
                 <p class="mx-1 text-uppercase">Telefono *</p>
@@ -80,17 +87,27 @@
                     id="telephone"
                     placeholder="Telefono"
                     required
+                    maxlength="10"
+                    v-model="phoneNumber"
                   />
                 </div>
                 <h3 class="py-2 text-bold">Come vuoi pagare?</h3>
-                <a class="btn button credit-card mb-4">
+                <a class="btn button credit-card mb-4" @click.prevent="purchase()">
                   <i class="fa-solid fa-credit-card"></i> Carta di Credito</a
                 >
+               
               </form>
+              <div>
+                <PaymentComponent/>
+              </div>
             </div>
           </div>
         </div>
+        <div>
+          <CartComponent/>
+        </div>
       </div>
+     
     </div>
     <div class="container container-monocard my-5 p-3">
       <div class="card card-help col-9 p-3">
@@ -125,18 +142,37 @@
   import HeaderComponent from "../components/HeaderComponent.vue";
   import RedComponent from "../components/RedComponent.vue";
   import { Manipulation } from "swiper";
+  import CartComponent from "../components/CartComponent.vue";
+  import PaymentComponent from "../components/PaymentComponent.vue";
+
   
   export default {
     name: "CheckOutPage",
-    components: { HeaderComponent, RedComponent },
+    components: { HeaderComponent, RedComponent, CartComponent , PaymentComponent },
     data() {
       return {
         store,
         menu: [],
+        name: 'Leonardo',
+        email: 'leonardo@gmail.com',
+        address: 'Via Roma 21',
+        phoneNumber: '561561651',
       };
     },
     mounted() {
       this.getDishes();
+      store.cart = this.getAllCart
+    },
+    computed: {
+      getAllCart() {
+        let storage = []
+        let keys = Object.keys(localStorage)
+        for (let i = 0; i < keys.length; i++) {
+          storage.push(JSON.parse(localStorage.getItem(keys[i])))
+        }
+        return storage;
+      },
+
     },
   
     methods: {
@@ -144,7 +180,7 @@
         axios
           .get(`${this.store.apiBaseUrl}/restaurants/${this.$route.params.slug}`)
           .then((response) => {
-            console.log(response.data.results);
+            // console.log(response.data.results);
             if (response.data.success) {
               this.menu = response.data.results;
             } else {
@@ -164,7 +200,31 @@
         const closingTime = parseInt(this.menu.closing_hours.split(":")[0]) + parseInt(this.menu.closing_hours.split(":")[1]) / 60;
         return currentTime >= openingTime && currentTime <= closingTime;
       },
+      purchase(){
+        const data  = {
+          name: this.name,
+          email : this.email,
+          address : this.address,
+          phoneNumber : this.phoneNumber,
+          totalPrice : store.totalPrice,
+          cart : store.cart,
+          paymentStatus: store.paymentStatus
+        }
+        axios.post(`${store.apiBaseUrl}/purchase`, data,  {headers: { "Content-Type": "multipart/form-data" }}).then((response)=>{
+          console.log(response.data.results)
+          console.log(response.data.order)
+
+        })
+
+      }
     },
+    watch: {
+      'store.saveOrder':{
+        handler(){
+          this.purchase()
+        }
+      }
+    }
   };
   </script>
   
