@@ -5,6 +5,11 @@ export const store = reactive({
 
     cart: [],
 
+    totalPrice: '',
+
+    paymentStatus: null,
+
+    saveOrder: false,
 
     cartShow: false,
 

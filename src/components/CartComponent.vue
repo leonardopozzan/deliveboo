@@ -20,14 +20,12 @@
             </div>
             <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
                     @click="resetOrder()">Resetta</button>
-                <button>Compra</button>
+                <router-link :to="{name : 'check-out'}"><button>Compra</button></router-link>
             </div>
             <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
-
         </div>
-
-
-
+        
+        
     </div>
 </template>
 
@@ -62,6 +60,7 @@ export default {
         clearCart() {
             localStorage.clear()
             store.cart = [];
+
         },
         resetOrder() {
             Swal.fire({
@@ -83,9 +82,31 @@ export default {
                     )
                 }
             })
+
+
+        },
+        getTotal () {
+            let total = 0
+            for (let i = 0; i < store.cart.length; i++) {
+                total += store.cart[i].price * store.cart[i].quantity
+            }
+            store.totalPrice = total
+        }
+
+        },
+        watch: {
+            'store.cart': {
+            handler() {
+                this.getTotal()
+            },
+            deep: true
+            }
+        },
+        mounted(){
+            this.getTotal()
         }
     }
-}
+
 </script>
 
 <style lang="scss" scoped>
