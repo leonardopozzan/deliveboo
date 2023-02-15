@@ -18,7 +18,7 @@
             spaceBetween: 20,
         },
     }" navigation @swiper="onSwiper" @slideChange="onSlideChange">
-        <swiper-slide>
+        <swiper-slide :class="{ 'active': Object.keys($route.query).length == 0 || $route.query.type == '' }">
             <div class="slide-image" @click="resetType()">
                 <img src="/img/dd-slide.png" alt="alltype">
                 <div class="slide-type">
@@ -26,8 +26,9 @@
                 </div>
             </div>
         </swiper-slide>
-        <swiper-slide v-for="(type, i) in  types">
-            <div class="slide-image" @click="getRestaurantbyTypes(type.id)">
+        <swiper-slide v-for="(type, i) in  types"
+            :class="{ 'active': $route.query.type && $route.query.type.split('+').includes(type.slug) }">
+            <div class="slide-image" @click="getRestaurantbyTypes(type.slug)">
                 <div v-if="type.image"><img :src="`${imgUrl}${type.image}`" alt=""></div>
                 <div class="slide-type">
                     <h6>{{ type.name }}</h6>
@@ -79,16 +80,52 @@ export default {
         };
     },
     methods: {
-        getRestaurantbyTypes(id) {
-            store.data.params.typeFilter = id;
-            // console.log(store.data.params.typeFilter);
+        getRestaurantbyTypes(slug) {
+
+            if (this.$route.query.type) {
+
+                const slugArray = this.$route.query.type.split('+');
+
+                if (!slugArray.includes(slug)) {
+
+                    const fullSlag = this.$route.query.type + '+' + slug;
+
+                    this.$router.push({ path: this.$route.path, query: { type: fullSlag } });
+                } else {
+
+                    slugArray.splice(slugArray.indexOf(slug), 1);
+                    const fullSlag = slugArray.join('+');
+                    this.$router.push({ path: this.$route.path, query: { type: fullSlag } });
+
+                }
+
+
+            } else {
+
+                this.$router.push({ path: this.$route.path, query: { type: slug } });
+
+            }
+
+
+            console.log(this.$route.query);
+
+            // if (!store.data.params.typeFilter.includes(id)) {
+
+            //     store.data.params.typeFilter.push(id);
+            // } else {
+            //     store.data.params.typeFilter.splice(store.data.params.typeFilter.indexOf(id), 1);
+            // }
         },
+
         resetType() {
-            store.data.params.typeFilter = '';
+            this.$router.push({ path: this.$route.path, query: { type: '' } });
+
         }
-    }
+    },
+
 
 }
+
 
 
 
@@ -104,6 +141,7 @@ export default {
         border-radius: 6px;
         overflow: hidden;
         cursor: pointer;
+        opacity: 0.6;
 
         .slide-image {
             height: 134px;
@@ -134,6 +172,10 @@ export default {
             }
         }
 
+    }
+
+    .active {
+        opacity: 1;
     }
 
 }

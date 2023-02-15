@@ -8,7 +8,7 @@
         <div class="menu">
 
           <div>
-            <div class="d-flex judtify-content-center align-items-center box-info">
+            <div class="d-flex align-items-center box-info">
               <div class="restaurant-img-box col-4 p-2">
                 <img :src="`${store.imagBasePath}${menu.image}`" :alt="menu.name" />
               </div>
@@ -21,7 +21,8 @@
                         aperto</span>
                     </div>
                     <div v-else>
-                      <span class="text-danger"><i class="fa-solid fa-circle text-danger"> </i> Ristorante chiuso ,
+                      <span class="text-danger"><i class="fa-solid fa-circle text-danger"> </i> Ristorante chiuso apre
+                        alle {{ menu.opening_hours.slice(0, 5) }},
                         preordina</span>
                     </div>
               </div>
@@ -29,7 +30,10 @@
             <div class="row g-3 mt-3">
               <div v-for="(dish, i) in menu.dishes" class="col-12 col-lg-6 my-card" :key="i">
                 <div class="inner-card d-flex">
-                  <div class="img-box col-5"><img :src="`${store.imagBasePath}${dish.image}`" alt=""></div>
+                  <div class="img-box col-5">
+                    <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
+                    <img v-else src="/img/dd-slide.png" alt="">
+                  </div>
                   <div class="px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
                     <div>{{ dish.price }} &nbsp;&euro; </div>
@@ -45,7 +49,7 @@
 
         </div>
 
-        <div class="cart">
+        <div class="cart" :class="{ 'show': store.cartShow }">
           <CartComponent />
         </div>
 
@@ -315,15 +319,18 @@ export default {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1224px) {
 
 
   #box-primary {
+
     position: relative;
+    height: 100%;
 
     .menu {
 
       width: 100%;
+      display: block !important;
     }
 
     .cart {
@@ -334,12 +341,16 @@ export default {
       width: 100%;
       height: 100vh;
       z-index: 10001;
+      background-color: rgba(0, 0, 0, 0.3);
       display: none;
 
       .my-cart {
-        width: 100%;
-        height: 100%;
-        padding: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        min-height: 324px;
 
         .inner-cart {
           height: 100%;
@@ -347,6 +358,10 @@ export default {
 
       }
 
+    }
+
+    .show {
+      display: block;
     }
   }
 
