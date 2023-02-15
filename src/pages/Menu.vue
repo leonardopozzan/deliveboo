@@ -274,6 +274,9 @@ export default {
       opacity: 1;
     }
 
+    &:hover .dish-info::-webkit-scrollbar {
+      display: block;
+    }
 
     .img-box {
       // width: 140px;
@@ -293,7 +296,17 @@ export default {
 
       &::-webkit-scrollbar {
         display: none;
+        width: 2px;
       }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $red;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: $border-grey;
+      }
+
 
 
     }
