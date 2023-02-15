@@ -296,15 +296,17 @@ export default {
 
       &::-webkit-scrollbar {
         display: none;
-        width: 2px;
+        width: 3px;
       }
 
       &::-webkit-scrollbar-thumb {
         background-color: $red;
+        border-radius: 30px;
       }
 
       &::-webkit-scrollbar-track {
         background-color: $border-grey;
+        border-radius: 30px;
       }
 
 
@@ -358,19 +360,19 @@ export default {
       background-color: rgba(0, 0, 0, 0.3);
       display: none;
 
-      .my-cart {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        min-height: 324px;
+      // .my-cart {
+      //   position: absolute;
+      //   top: 50%;
+      //   left: 50%;
+      //   transform: translate(-50%, -50%);
+      //   width: 90%;
+      //   min-height: 324px;
 
-        .inner-cart {
-          height: 100%;
-        }
+      //   .inner-cart {
+      //     height: 100%;
+      //   }
 
-      }
+      // }
 
     }
 

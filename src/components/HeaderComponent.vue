@@ -12,16 +12,19 @@
 
         <div class="menu-link">
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
-
+          <router-link to="/contact"><span>Contatti</span></router-link>
           <router-link to="/reviewers"><span>Scrivici una recensione</span></router-link>
-          <button><span class="dot" v-show="store.cart.length >= 1"></span><i
-              class="fa-solid fa-cart-shopping"></i></button>
+          <button>
+            <span class="dot" v-show="store.cart.length >= 1"></span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
 
         </div>
 
         <div class="navbar-menu dropdown-link" :class="{ 'open': showDropDown }">
           <div>
             <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
+            <router-link to="/contact"><span>Contatti</span></router-link>
             <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
           </div>
         </div>
@@ -127,10 +130,6 @@ export default {
 
       font-weight: $font-w-md;
 
-      a:first-child {
-        margin-right: 8px;
-      }
-
       a:hover {
         color: $black;
       }
@@ -138,8 +137,7 @@ export default {
       a span {
 
         position: relative;
-        padding-bottom: 6px;
-        padding-inline: 6px;
+        padding: 10px;
 
         &::after {
           content: '';
