@@ -25,7 +25,7 @@
           <div>
             <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
             <router-link to="/contact"><span>Contatti</span></router-link>
-            <router-link to="/reviewers"><span>Scrivici una recenzione</span></router-link>
+            <router-link to="/reviewers"><span>Scrivici una recensione</span></router-link>
           </div>
         </div>
 
