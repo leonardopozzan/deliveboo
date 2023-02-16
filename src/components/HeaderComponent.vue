@@ -16,8 +16,8 @@
           <router-link to="/contact"><span>Contatti</span></router-link>
           <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
           <button @click="showCart">
-            <span class="dot" v-show="store.cart.length >= 1"></span>
-            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="dot" v-show="store.cart.length >= 1">{{ store.cart.length }}</span>
+            <i class="fa-solid fa-cart-shopping fs-5"></i>
           </button>
 
         </div>
@@ -32,8 +32,8 @@
 
         <div class="hamburger">
           <i class="fa-solid fa-bars" @click="menuToggle"></i>
-          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1"></span><i
-              class="fa-solid fa-cart-shopping"></i></button>
+          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{ store.cart.length }}</span><i
+              class="fa-solid fa-cart-shopping fs-5"></i></button>
         </div>
 
       </div>
@@ -57,6 +57,7 @@ export default {
     };
   },
   mounted() {
+    store.cart = this.getAllCart;
     if (this.$route.name === "home") {
       window.addEventListener("scroll", this.handleScroll);
     }
@@ -67,7 +68,12 @@ export default {
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-  computed: {},
+  computed: {
+    getAllCart() {
+      let storage = JSON.parse(localStorage.getItem('cart')) || [];
+      return storage;
+    },
+  },
   methods: {
     handleScroll() {
       if (window.scrollY > 250) {
@@ -195,13 +201,13 @@ export default {
 
     .dot {
       display: block;
-      width: 10px;
-      height: 10px;
+      width: 20px;
+      height: 20px;
       background-color: $red;
       border-radius: 50%;
       position: absolute;
-      top: -1px;
-      right: 0;
+      top: -12px;
+      right: -7px;
     }
 
   }

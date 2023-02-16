@@ -48,18 +48,21 @@ export default {
     methods: {
         addQuantity(dish, i) {
             store.cart[i].quantity++
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity++
-            localStorage.setItem(dish.slug, JSON.stringify(item))
+            localStorage.setItem('cart', JSON.stringify(cart))
         },
         removeQuantity(dish, i) {
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity--
             if (item.quantity) {
-                localStorage.setItem(dish.slug, JSON.stringify(item))
-                store.cart[i].quantity--
+                localStorage.setItem('cart', JSON.stringify(cart));
+                store.cart[i].quantity--;
             } else {
-                localStorage.removeItem(dish.slug)
+                cart = cart.filter((element) => element.slug !== dish.slug)
+                localStorage.setItem('cart', JSON.stringify(cart));
                 store.cart.splice(i, 1)
             }
         },

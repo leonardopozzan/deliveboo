@@ -94,7 +94,7 @@ export default {
       categories: [],
       restaurantCategories: [],
       restaurantMenu: null,
-      vueLocalStorage: ''
+      vueLocalStorage: []
     };
   },
   watch: {
@@ -109,16 +109,11 @@ export default {
     this.getDishes();
     store.cart = this.getAllCart
     this.getStorageKeys()
-    console.log(store.cart)
     this.getCategories();
   },
   computed: {
     getAllCart() {
-      let storage = []
-      let keys = Object.keys(localStorage)
-      for (let i = 0; i < keys.length; i++) {
-        storage.push(JSON.parse(localStorage.getItem(keys[i])))
-      }
+      let storage = JSON.parse(localStorage.getItem('cart')) || [];
       return storage;
     },
 
@@ -183,9 +178,9 @@ export default {
     },
     tryAddToCart(dish) {
       // console.log(localStorage)
-      if (localStorage.length) {
-        const keys = Object.keys(localStorage)
-        const restaurantId = JSON.parse(localStorage.getItem(keys[0])).restaurant_id
+      const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
+      if (isNotEmpty) {
+        const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;
         if (dish.restaurant_id != restaurantId) {
           this.sendError()
           return
@@ -199,7 +194,16 @@ export default {
     addToCart(dish) {
       dish.quantity = 1
       store.cart.push(dish)
-      localStorage.setItem(dish.slug, JSON.stringify(dish))
+      if (localStorage.getItem('cart')) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+      else {
+        const cart = [];
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -218,7 +222,14 @@ export default {
       });
     },
     getStorageKeys() {
-      this.vueLocalStorage = Object.keys(localStorage)
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      this.vueLocalStorage = [];
+      if (cart && cart.length) {
+        for (let i = 0; i < cart.length; i++) {
+          this.vueLocalStorage.push(cart[i].slug);
+        }
+
+      }
     },
 
 
