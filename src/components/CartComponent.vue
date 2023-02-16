@@ -24,11 +24,10 @@
                 </div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
                         @click="resetOrder()">Resetta</button>
-                    <router-link :to="{ name: 'check-out' }"><button>Compra</button></router-link>
+                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"><button>Compra</button></router-link>
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
-
 
         </div>
 
@@ -43,7 +42,11 @@ export default {
     data() {
         return {
             store,
+            restaurantSlug : 'aaa'
         }
+    },
+    computed :{
+       
     },
     methods: {
         addQuantity(dish, i) {
@@ -100,6 +103,10 @@ export default {
                 total += store.cart[i].price * store.cart[i].quantity
             }
             store.totalPrice = total
+        },
+        getRestaurantSLug(){
+            this.restaurantSlug =  localStorage.getItem('restaurantSlug')
+
         }
 
     },
@@ -113,6 +120,7 @@ export default {
     },
     mounted() {
         this.getTotal()
+        this.getRestaurantSLug()
     }
 }
 

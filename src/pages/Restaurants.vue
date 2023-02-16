@@ -74,14 +74,14 @@ export default {
 
             axios.get(this.store.apiBaseUrl + "/restaurants", data).then(response => {
                 this.restaurants = response.data.results;
-                console.log(response.data.results);
+                // console.log(response.data.results);
             });
         },
 
         getRestaurantsTypes() {
             axios.get(this.store.apiBaseUrl + "/types").then(response => {
                 this.types = response.data.types
-                console.log(response.data.types);
+                // console.log(response.data.types);
             });
         },
 

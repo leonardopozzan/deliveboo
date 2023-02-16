@@ -48,7 +48,7 @@ export default {
 
   mounted() {
     axios.get("http://127.0.0.1:8000/api/types").then((response) => {
-      console.log(response.data.types);
+      // console.log(response.data.types);
       this.types = response.data.types;
     });
   },

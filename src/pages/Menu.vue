@@ -40,7 +40,7 @@
                     <div class="ingredients">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish)"><i
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish, menu.slug)"><i
                       class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default {
       axios
         .get(`${this.store.apiBaseUrl}/restaurants/${this.$route.params.slug}`)
         .then((response) => {
-          // console.log(response.data.results);
+          console.log(response.data.results);
           if (response.data.success) {
             this.menu = response.data.results;
 
@@ -176,8 +176,7 @@ export default {
       const closingTime = parseInt(this.menu.closing_hours.split(":")[0]) + parseInt(this.menu.closing_hours.split(":")[1]) / 60;
       return currentTime >= openingTime && currentTime <= closingTime;
     },
-    tryAddToCart(dish) {
-      // console.log(localStorage)
+    tryAddToCart(dish, restaurantSlug) {
       const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
       if (isNotEmpty) {
         const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;
@@ -185,13 +184,16 @@ export default {
           this.sendError()
           return
         } else {
-          this.addToCart(dish)
+          this.addToCart(dish, restaurantSlug)
           return
         }
       }
-      this.addToCart(dish)
+      this.addToCart(dish, restaurantSlug)
     },
-    addToCart(dish) {
+    addToCart(dish, restaurantSlug) {
+
+      localStorage.setItem('restaurantSlug', restaurantSlug);
+
       dish.quantity = 1
       store.cart.push(dish)
       if (localStorage.getItem('cart')) {

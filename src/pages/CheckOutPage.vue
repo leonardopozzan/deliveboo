@@ -161,17 +161,8 @@
     },
     mounted() {
       this.getDishes();
-      store.cart = this.getAllCart
     },
     computed: {
-      getAllCart() {
-        let storage = []
-        let keys = Object.keys(localStorage)
-        for (let i = 0; i < keys.length; i++) {
-          storage.push(JSON.parse(localStorage.getItem(keys[i])))
-        }
-        return storage;
-      },
 
     },
   
