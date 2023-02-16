@@ -16,8 +16,8 @@
           <router-link to="/contact"><span>Contatti</span></router-link>
           <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
           <button @click="showCart">
-            <span class="dot" v-show="store.cart.length >= 1">{{ store.cart.length }}</span>
-            <i class="fa-solid fa-cart-shopping fs-5"></i>
+            <span class="dot" v-show="store.cart.length >= 1">{{ getTotalItem }}</span>
+            <i class="fa-solid fa-cart-shopping"></i>
           </button>
 
         </div>
@@ -32,8 +32,8 @@
 
         <div class="hamburger">
           <i class="fa-solid fa-bars" @click="menuToggle"></i>
-          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{ store.cart.length }}</span><i
-              class="fa-solid fa-cart-shopping fs-5"></i></button>
+          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
+              class="fa-solid fa-cart-shopping"></i></button>
         </div>
 
       </div>
@@ -69,6 +69,14 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   computed: {
+    getTotalItem() {
+      let total = 0
+      for (let i = 0; i < store.cart.length; i++) {
+          total += store.cart[i].quantity
+      }
+      return total
+    },
+  
     getAllCart() {
       let storage = JSON.parse(localStorage.getItem('cart')) || [];
       return storage;
@@ -201,20 +209,23 @@ export default {
 
     .dot {
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 23px;
+      height: 23px;
       background-color: $red;
       border-radius: 50%;
       position: absolute;
       top: -12px;
       right: -7px;
+      font-weight: bolder;
     }
 
   }
 
 
 }
-
+.fa-solid.fa-cart-shopping{
+  font-size: 26px;
+}
 .nav-block {
   position: sticky;
 }
