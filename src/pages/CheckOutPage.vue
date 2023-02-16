@@ -49,6 +49,7 @@
                     id="name"
                     placeholder="Nome e cognome"
                     required
+                    maxlength="100"
                     v-model="name"
                   />
                 </div>
@@ -62,6 +63,7 @@
                     placeholder="E-mail"
                     required
                     v-model="email"
+                    maxlength="100"
 
                   />
                 </div>
@@ -75,6 +77,7 @@
                     placeholder="Indirizzo"
                     required
                     v-model="address"
+                    maxlength="150"
 
                   />
                 </div>
@@ -83,7 +86,7 @@
                   <input
                     class=""
                     type="text"
-                    name="telephone"
+                    name="phoneNumber"
                     id="telephone"
                     placeholder="Telefono"
                     required
@@ -211,8 +214,8 @@
           paymentStatus: store.paymentStatus
         }
         axios.post(`${store.apiBaseUrl}/purchase`, data,  {headers: { "Content-Type": "multipart/form-data" }}).then((response)=>{
-          console.log(response.data.results)
-          console.log(response.data.order)
+          console.log(response.data)
+          // console.log(response.data.order)
 
         })
 

@@ -22,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="store.cart.length >= 1" class="text-center text-danger fw-bold fs-5">{{ store.totalPrice }}&euro;</div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
                         @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out' }"><button>Compra</button></router-link>
