@@ -99,7 +99,8 @@ export default {
         return;
       }
 
-      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  !localStorage.getItem('cart').length || !localStorage.getItem('cart')) {
+
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  !JSON.parse(localStorage.getItem('cart')).length || !localStorage.getItem('cart')) {
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -112,7 +113,7 @@ export default {
 
       }
 
-      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  localStorage.getItem('cart').length) {
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  JSON.parse(localStorage.getItem('cart')).length) {
         const restaurantSlug = localStorage.getItem('restaurantSlug');
         this.$router.push({ name: 'check-out', params: { slug : restaurantSlug} });
         return;

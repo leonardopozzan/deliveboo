@@ -77,26 +77,6 @@
 </template>
 
 <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import HeaderComponent from "../components/HeaderComponent.vue";
 import RedComponent from "../components/RedComponent.vue";
 import axios from "axios";
@@ -197,6 +177,7 @@ export default {
       return currentTime >= openingTime && currentTime <= closingTime;
     },
     tryAddToCart(dish, restaurantSlug) {
+      console.log(restaurantSlug)
       const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
       if (isNotEmpty) {
         const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;

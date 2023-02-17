@@ -21,8 +21,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
-                        @click="resetOrder()">Resetta</button>
+                <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
+                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> 
+                    <button @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
 
                 </div>
@@ -111,7 +112,7 @@ export default {
             store.totalPrice = total
         },
         getRestaurantSLug(){
-            this.restaurantSlug =  localStorage.getItem('restaurantSlug')
+            this.restaurantSlug =  localStorage.getItem('restaurantSlug') || 'aaa'
 
         }
 
@@ -135,7 +136,12 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_variables' as *;
 
-
+.price{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: $red;
+}
 .cart {
     width: 100%;
 }
@@ -230,6 +236,10 @@ export default {
                 &:hover {
                     background-color: $red;
                     color: white;
+                }
+                &:last-child:hover{
+                    background-color: $orange;
+
                 }
             }
         }
