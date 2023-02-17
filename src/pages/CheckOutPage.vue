@@ -44,20 +44,20 @@
             <form class="col-12 text-start">
               <p class="mx-1 text-uppercase">Nome e cognome *</p>
               <div class="input mb-2">
-                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required v-model="name" />
+                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required maxlength="100" v-model="name" />
               </div>
               <p class="mx-1 text-uppercase">E-mail *</p>
               <div class="input mb-2">
-                <input class="" type="email" name="email" id="email" placeholder="E-mail" required v-model="email" />
+                <input class="" type="email" name="email" id="email" placeholder="E-mail" required maxlength="100" v-model="email" />
               </div>
               <p class="mx-1 text-uppercase">Indirizzo *</p>
               <div class="input mb-2">
-                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" required
+                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" maxlength="150" required
                   v-model="address" />
               </div>
               <p class="mx-1 text-uppercase">Telefono *</p>
               <div class="input mb-5">
-                <input class="" type="text" name="telephone" id="telephone" placeholder="Telefono" required maxlength="10"
+                <input class="" type="text" name="phoneNumber" id="phoneNumber" placeholder="Telefono" required maxlength="10"
                   v-model="phoneNumber" />
               </div>
               <h3 class="py-2 text-bold">Paga con Carta di Credito</h3>

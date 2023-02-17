@@ -21,11 +21,11 @@
                         </div>
                     </div>
                 </div>
+
                 <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> 
                     <button @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
-
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
