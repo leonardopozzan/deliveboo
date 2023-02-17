@@ -1,5 +1,4 @@
 <template>
-
   <Transition name="scroll">
     <nav class="navbar bg-white nav-position" v-show="showNav" :class="{ 'nav-block': $route.name != 'home' }">
 
@@ -39,7 +38,7 @@
       </div>
 
     </nav>
-  </Transition>
+</Transition>
 </template>
 
 <script>
@@ -95,7 +94,7 @@ export default {
       this.showDropDown = !this.showDropDown;
     },
     showCart() {
-      if (window.innerWidth <= 1224 && (this.$route.name == 'menu' || this.$route.name == 'check-out')) {
+      if (window.innerWidth <= 1199 && (this.$route.name == 'menu' || this.$route.name == 'check-out')) {
         this.store.cartShow = !this.store.cartShow;
         return;
       }
@@ -109,6 +108,8 @@ export default {
           timer: 1500
         });
         return;
+
+
       }
 
       if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  localStorage.getItem('cart').length) {

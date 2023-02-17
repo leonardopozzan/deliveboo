@@ -1,5 +1,4 @@
 <template>
-
     <div class="cart" :class="{ 'show': store.cartShow }">
 
 
@@ -24,17 +23,24 @@
                 </div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
                         @click="resetOrder()">Resetta</button>
-                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"><button>Compra</button></router-link>
+                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
+
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
 
         </div>
 
-    </div>
+</div>
 </template>
 
 <script>
+
+
+
+
+
+
 import { store } from '../store'
 import Swal from 'sweetalert2';
 
@@ -232,7 +238,7 @@ export default {
 
 
 
-@media (max-width: 1224px) {
+@media (max-width: 1199px) {
 
     .cart {
         position: absolute;
