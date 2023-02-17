@@ -115,6 +115,7 @@ div {
     .container-fluid {
         .cards-box {
             .container-loader {
+                padding: 4rem 0 10rem 0;
                 text-align: center;
                 color: $red;
                 font-size: 60px;

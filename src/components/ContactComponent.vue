@@ -1,5 +1,5 @@
 <template>
-    <section class="contact_me py-5" id="form">
+    <section class="contact_me" id="form">
         <div class="inner-wrapper">
             <div class="container-fluid ">
                 <h2 class="text-uppercase text-center clienti">servizio clienti</h2>
@@ -95,8 +95,15 @@ export default {
 @use '../assets/styles/partials/_variables' as *;
 
 #form {
+    overflow: hidden;
+    border-radius: 50px;
+    padding: 5rem 2rem;
+    background-image: url('/img/contact-us.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     width: 60%;
-    margin: 0 auto;
+    margin: 3rem auto;
 
     .input {
         max-width: 100%;
