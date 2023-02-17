@@ -389,7 +389,12 @@ export default {
       .my-card {
         .inner-card {
           button {
-            display: block !important;
+            height: 38px;
+            width: 38px;
+            opacity: 1!important;
+            visibility: visible;
+            font-size: 1rem;
+
           }
         }
       }
