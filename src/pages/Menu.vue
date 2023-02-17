@@ -123,7 +123,7 @@ export default {
       axios
         .get(`${this.store.apiBaseUrl}/restaurants/${this.$route.params.slug}`)
         .then((response) => {
-          console.log(response.data.results);
+          // console.log(response.data.results);
           if (response.data.success) {
             this.menu = response.data.results;
 
@@ -177,7 +177,7 @@ export default {
       return currentTime >= openingTime && currentTime <= closingTime;
     },
     tryAddToCart(dish, restaurantSlug) {
-      console.log(restaurantSlug)
+      // console.log(restaurantSlug)
       const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
       if (isNotEmpty) {
         const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;

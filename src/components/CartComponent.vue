@@ -107,8 +107,15 @@ export default {
         getTotal() {
             let total = 0
             for (let i = 0; i < store.cart.length; i++) {
-                total += store.cart[i].price * store.cart[i].quantity
+                total += (store.cart[i].price * store.cart[i].quantity)
+                console.log(store.cart[i].price)
+                console.log(store.cart[i].quantity)
+                console.log(total)
+
+
+
             }
+            total = total.toFixed(2)
             store.totalPrice = total
         },
         getRestaurantSLug(){
