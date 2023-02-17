@@ -9,9 +9,11 @@
                 <h2 class="text-center">Il tuo ordine</h2>
                 <div class="py-3 items-box">
                     <div v-for="(item, i) in store.cart" class="cart-item">
+                        <div class="close" @click="removeItem(item, i)">X</div>
                         <div class="img-box">
                             <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
                             <img v-else src="/img/dd-slide.png" alt="">
+                            <div class="pricex">{{ item.price }} &nbsp;&euro; </div>
                         </div>
                         <div class="text-capitalize me-3">{{ item.name }} </div>
                         <div class="d-flex">
@@ -23,25 +25,20 @@
                 </div>
 
                 <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
-                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> 
+                <div class="text-center cart-buttons" v-if="store.cart.length >= 1">
                     <button @click="resetOrder()">Resetta</button>
-                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
+                    <router-link :to="{ name: 'check-out', params: { slug: restaurantSlug } }"
+                        @click="store.cartShow = false"><button>Compra</button></router-link>
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
 
         </div>
 
-</div>
+    </div>
 </template>
 
 <script>
-
-
-
-
-
-
 import { store } from '../store'
 import Swal from 'sweetalert2';
 
@@ -49,11 +46,11 @@ export default {
     data() {
         return {
             store,
-            restaurantSlug : 'aaa'
+            restaurantSlug: 'aaa'
         }
     },
-    computed :{
-       
+    computed: {
+
     },
     methods: {
         addQuantity(dish, i) {
@@ -118,9 +115,19 @@ export default {
             total = total.toFixed(2)
             store.totalPrice = total
         },
-        getRestaurantSLug(){
-            this.restaurantSlug =  localStorage.getItem('restaurantSlug') || 'aaa'
+        getRestaurantSLug() {
+            this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'aaa'
 
+        },
+        removeItem(item, i) {
+            store.cart.splice(i, 1);
+
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const index = cart.findIndex((element) => {
+                return element.id == item.id;
+            });
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
         }
 
     },
@@ -143,12 +150,13 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_variables' as *;
 
-.price{
+.price {
     text-align: center;
     font-weight: bold;
     font-size: 1.3rem;
     color: $red;
 }
+
 .cart {
     width: 100%;
 }
@@ -202,6 +210,7 @@ export default {
             align-items: center;
             justify-content: space-between;
             padding: 16px;
+            position: relative;
 
             &:hover {
                 cursor: pointer;
@@ -209,22 +218,53 @@ export default {
                 border-radius: 6px;
                 -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
                 box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
+
+                .close {
+                    display: block;
+                }
+            }
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                display: none;
+                color: $red;
+                font-weight: bolder;
+                font-size: $font-md;
+            }
+
+            .img-box {
+                width: 90px;
+                height: 90px;
+                border-radius: 6px;
+                overflow: hidden;
+                margin-right: 15px;
+                flex-shrink: 0;
+                position: relative;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .pricex {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    padding: 3px 3px;
+                    background-color: $red;
+                    color: $white;
+                    font-weight: $font-w-md;
+                    font-size: $font-sl;
+                }
             }
         }
 
-        .img-box {
-            width: 90px;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-right: 15px;
-            flex-shrink: 0;
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
 
 
         .cart-buttons {
@@ -244,7 +284,8 @@ export default {
                     background-color: $red;
                     color: white;
                 }
-                &:last-child:hover{
+
+                &:last-child:hover {
                     background-color: $orange;
 
                 }
@@ -308,7 +349,14 @@ export default {
 
             .cart-item {
 
-                padding: 8px;
+                padding: 16px;
+
+                .close {
+                    font-size: $font-sl;
+                    top: 4px;
+                    right: 4px;
+                    display: block;
+                }
             }
 
             .img-box {

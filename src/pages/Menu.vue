@@ -15,7 +15,7 @@
               <div class="ms-3">
                 <h4>{{ menu.name }}</h4>
                 <span v-for="(tipo, index) in menu.types" class="text-capitalize">
-                  {{ index < menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
+                  {{ index<menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
                     <div v-if="isIntervalActive()">
                       <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante
                         aperto</span>
@@ -40,8 +40,8 @@
                     <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish, menu.slug)"><i
-                      class="fa-solid fa-cart-shopping"></i></button>
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }"
+                    @click="tryAddToCart(dish, menu.slug)"><i class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
                                                   </div> -->
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -374,9 +374,25 @@ export default {
     height: 100%;
 
     .menu {
-
       width: 100%;
       display: block !important;
+    }
+
+  }
+
+}
+
+
+@media (max-width: 576px) {
+  #box-primary {
+    .menu {
+      .my-card {
+        .inner-card {
+          button {
+            display: block !important;
+          }
+        }
+      }
     }
 
   }
