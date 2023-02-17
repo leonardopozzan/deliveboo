@@ -40,7 +40,7 @@
                     <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish)"><i
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish, menu.slug)"><i
                       class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export default {
       categories: [],
       restaurantCategories: [],
       restaurantMenu: null,
-      vueLocalStorage: ''
+      vueLocalStorage: []
     };
   },
   watch: {
@@ -129,16 +129,11 @@ export default {
     this.getDishes();
     store.cart = this.getAllCart
     this.getStorageKeys()
-    console.log(store.cart)
     this.getCategories();
   },
   computed: {
     getAllCart() {
-      let storage = []
-      let keys = Object.keys(localStorage)
-      for (let i = 0; i < keys.length; i++) {
-        storage.push(JSON.parse(localStorage.getItem(keys[i])))
-      }
+      let storage = JSON.parse(localStorage.getItem('cart')) || [];
       return storage;
     },
 
@@ -148,7 +143,7 @@ export default {
       axios
         .get(`${this.store.apiBaseUrl}/restaurants/${this.$route.params.slug}`)
         .then((response) => {
-          // console.log(response.data.results);
+          console.log(response.data.results);
           if (response.data.success) {
             this.menu = response.data.results;
 
@@ -201,25 +196,36 @@ export default {
       const closingTime = parseInt(this.menu.closing_hours.split(":")[0]) + parseInt(this.menu.closing_hours.split(":")[1]) / 60;
       return currentTime >= openingTime && currentTime <= closingTime;
     },
-    tryAddToCart(dish) {
-      // console.log(localStorage)
-      if (localStorage.length) {
-        const keys = Object.keys(localStorage)
-        const restaurantId = JSON.parse(localStorage.getItem(keys[0])).restaurant_id
+    tryAddToCart(dish, restaurantSlug) {
+      const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
+      if (isNotEmpty) {
+        const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;
         if (dish.restaurant_id != restaurantId) {
           this.sendError()
           return
         } else {
-          this.addToCart(dish)
+          this.addToCart(dish, restaurantSlug)
           return
         }
       }
-      this.addToCart(dish)
+      this.addToCart(dish, restaurantSlug)
     },
-    addToCart(dish) {
+    addToCart(dish, restaurantSlug) {
+
+      localStorage.setItem('restaurantSlug', restaurantSlug);
+
       dish.quantity = 1
       store.cart.push(dish)
-      localStorage.setItem(dish.slug, JSON.stringify(dish))
+      if (localStorage.getItem('cart')) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+      else {
+        const cart = [];
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -238,7 +244,14 @@ export default {
       });
     },
     getStorageKeys() {
-      this.vueLocalStorage = Object.keys(localStorage)
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      this.vueLocalStorage = [];
+      if (cart && cart.length) {
+        for (let i = 0; i < cart.length; i++) {
+          this.vueLocalStorage.push(cart[i].slug);
+        }
+
+      }
     },
 
 

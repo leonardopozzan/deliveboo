@@ -15,7 +15,7 @@
           <router-link to="/contact"><span>Contatti</span></router-link>
           <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
           <button @click="showCart">
-            <span class="dot" v-show="store.cart.length >= 1"></span>
+            <span class="dot" v-show="store.cart.length >= 1">{{ getTotalItem }}</span>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
 
@@ -31,7 +31,7 @@
 
         <div class="hamburger">
           <i class="fa-solid fa-bars" @click="menuToggle"></i>
-          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1"></span><i
+          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
               class="fa-solid fa-cart-shopping"></i></button>
         </div>
 
@@ -56,6 +56,7 @@ export default {
     };
   },
   mounted() {
+    store.cart = this.getAllCart;
     if (this.$route.name === "home") {
       window.addEventListener("scroll", this.handleScroll);
     }
@@ -66,7 +67,20 @@ export default {
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-  computed: {},
+  computed: {
+    getTotalItem() {
+      let total = 0
+      for (let i = 0; i < store.cart.length; i++) {
+          total += store.cart[i].quantity
+      }
+      return total
+    },
+  
+    getAllCart() {
+      let storage = JSON.parse(localStorage.getItem('cart')) || [];
+      return storage;
+    },
+  },
   methods: {
     handleScroll() {
       if (window.scrollY > 250) {
@@ -85,24 +99,24 @@ export default {
         return;
       }
 
-      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length == 0) {
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  !localStorage.getItem('cart').length || !localStorage.getItem('cart')) {
         Swal.fire({
           position: 'center',
           icon: 'error',
           title: 'Il carrello e vuoto',
           showConfirmButton: false,
-          timer: 2000
+          timer: 1500
         });
         return;
 
 
       }
 
-      // if (this.$route.name != 'menu' && this.$route.name != 'check-out' && Object.keys(localStorage).length != 0) {
-      //   console.log('ok');
-      //   this.$router.path({ name: 'check-out' });
-      //   return;
-      // }
+      if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  localStorage.getItem('cart').length) {
+        const restaurantSlug = localStorage.getItem('restaurantSlug');
+        this.$router.push({ name: 'check-out', params: { slug : restaurantSlug} });
+        return;
+      }
     }
 
   },
@@ -196,20 +210,23 @@ export default {
 
     .dot {
       display: block;
-      width: 10px;
-      height: 10px;
+      width: 23px;
+      height: 23px;
       background-color: $red;
       border-radius: 50%;
       position: absolute;
-      top: -1px;
-      right: 0;
+      top: -12px;
+      right: -7px;
+      font-weight: bolder;
     }
 
   }
 
 
 }
-
+.fa-solid.fa-cart-shopping{
+  font-size: 26px;
+}
 .nav-block {
   position: sticky;
 }

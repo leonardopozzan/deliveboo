@@ -69,8 +69,41 @@
               <PaymentComponent />
             </div>
           </div>
+          <div class="riepilogo-down">
+            <h3 class="py-2 text-bold my-3">Inserisci i tuoi dati </h3>
+            <form class="col-12 text-start">
+              <p class="mx-1 text-uppercase">Nome e cognome *</p>
+              <div class="input mb-2">
+                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required
+                  v-model="name" />
+              </div>
+              <p class="mx-1 text-uppercase">E-mail *</p>
+              <div class="input mb-2">
+                <input class="" type="email" name="email" id="email" placeholder="E-mail" required v-model="email" />
+              </div>
+              <p class="mx-1 text-uppercase">Indirizzo *</p>
+              <div class="input mb-2">
+                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" required
+                  v-model="address" />
+              </div>
+              <p class="mx-1 text-uppercase">Telefono *</p>
+              <div class="input mb-5">
+                <input class="" type="text" name="telephone" id="telephone" placeholder="Telefono" required
+                  maxlength="10" v-model="phoneNumber" />
+              </div>
+              <!-- <h3 class="py-2 text-bold">Come vuoi pagare?</h3>
+              <a class="btn button credit-card mb-4" @click.prevent="purchase()">
+                <i class="fa-solid fa-credit-card"></i> Carta di Credito</a
+              > -->
+
+            </form>
+            <div>
+              <PaymentComponent />
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="col-4 p-lg-1">
         <CartComponent />
       </div>
@@ -101,67 +134,11 @@
         </div>
       </div>
     </div>
-</div>
+
+  </div>
 </template>
-  
+
 <script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import axios from "axios";
 import { store } from "../store";
 import HeaderComponent from "../components/HeaderComponent.vue";
@@ -186,17 +163,8 @@ export default {
   },
   mounted() {
     this.getDishes();
-    store.cart = this.getAllCart
   },
   computed: {
-    getAllCart() {
-      let storage = []
-      let keys = Object.keys(localStorage)
-      for (let i = 0; i < keys.length; i++) {
-        storage.push(JSON.parse(localStorage.getItem(keys[i])))
-      }
-      return storage;
-    },
 
   },
 
@@ -252,7 +220,7 @@ export default {
   }
 };
 </script>
-  
+
 <style lang="scss" scoped>
 @use "../assets/styles/partials/_variables" as *;
 @use "../assets/styles/partials/_mixins" as *;
@@ -281,6 +249,7 @@ export default {
         }
 
         .info-logo {
+
           .rider-img {
             height: 154px;
 
@@ -332,7 +301,6 @@ export default {
 
   // CARD CON INFO
   .card-help {
-
     a {
 
       &:hover {
@@ -340,6 +308,7 @@ export default {
         color: $black;
       }
     }
+
 
     .card-tel {
       .icon {
@@ -360,7 +329,8 @@ export default {
 }
 
 .margin-negativo {
+
   margin-top: -60px !important;
 }
 </style>
-  
+

@@ -23,12 +23,11 @@
                 </div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
                         @click="resetOrder()">Resetta</button>
-                    <router-link :to="{ name: 'check-out' }"
-                        @click="store.cartShow = flase"><button>Compra</button></router-link>
+                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
+
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
-
 
         </div>
 
@@ -49,23 +48,30 @@ export default {
     data() {
         return {
             store,
+            restaurantSlug : 'aaa'
         }
+    },
+    computed :{
+       
     },
     methods: {
         addQuantity(dish, i) {
             store.cart[i].quantity++
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity++
-            localStorage.setItem(dish.slug, JSON.stringify(item))
+            localStorage.setItem('cart', JSON.stringify(cart))
         },
         removeQuantity(dish, i) {
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity--
             if (item.quantity) {
-                localStorage.setItem(dish.slug, JSON.stringify(item))
-                store.cart[i].quantity--
+                localStorage.setItem('cart', JSON.stringify(cart));
+                store.cart[i].quantity--;
             } else {
-                localStorage.removeItem(dish.slug)
+                cart = cart.filter((element) => element.slug !== dish.slug)
+                localStorage.setItem('cart', JSON.stringify(cart));
                 store.cart.splice(i, 1)
             }
         },
@@ -103,6 +109,10 @@ export default {
                 total += store.cart[i].price * store.cart[i].quantity
             }
             store.totalPrice = total
+        },
+        getRestaurantSLug(){
+            this.restaurantSlug =  localStorage.getItem('restaurantSlug')
+
         }
 
     },
@@ -116,6 +126,7 @@ export default {
     },
     mounted() {
         this.getTotal()
+        this.getRestaurantSLug()
     }
 }
 
