@@ -15,7 +15,7 @@
               <div class="ms-3">
                 <h4>{{ menu.name }}</h4>
                 <span v-for="(tipo, index) in menu.types" class="text-capitalize">
-                  {{ index<menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
+                  {{ index < menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
                     <div v-if="isIntervalActive()">
                       <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante
                         aperto</span>
@@ -33,11 +33,11 @@
                   <div class="img-box col-5">
                     <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
                     <img v-else src="/img/dd-slide.png" alt="">
+                    <div class="price">{{ dish.price }} &nbsp;&euro; </div>
                   </div>
                   <div class="dish-info px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
-                    <div>{{ dish.price }} &nbsp;&euro; </div>
-                    <div class="ingredients">{{ dish.ingredients }}</div>
+                    <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
                     :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish)"><i
@@ -54,29 +54,49 @@
         </div>
 
         <!-- <div v-for="(category, i) in categories" :key="i">
-          <div v-if="restaurantCategories.includes(category.name)">
-            <h2 class="title" >{{ category.name }}</h2>
-            <div class="d-flex flex-wrap">
-              <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-                <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
+                                                    <div v-if="restaurantCategories.includes(category.name)">
+                                                      <h2 class="title" >{{ category.name }}</h2>
+                                                      <div class="d-flex flex-wrap">
+                                                        <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                          <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div> -->
         <!-- <div v-for="(item, i) in restaurantMenu" :key="i">
-          <h2 class="title" >{{ item.category }}</h2>
-          <div class="d-flex flex-wrap">
-            <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-              {{ dish.name }}
-            </div>
-          </div>
-        </div> -->
+                                                    <h2 class="title" >{{ item.category }}</h2>
+                                                    <div class="d-flex flex-wrap">
+                                                      <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                        {{ dish.name }}
+                                                      </div>
+                                                    </div>
+                                                  </div> -->
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import HeaderComponent from "../components/HeaderComponent.vue";
 import RedComponent from "../components/RedComponent.vue";
 import axios from "axios";
@@ -284,12 +304,25 @@ export default {
     .img-box {
       // width: 140px;
       height: 136px;
+      position: relative;
 
       img {
         width: 100%;
         height: 100%;
         display: block;
         object-fit: cover;
+      }
+
+      .price {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 75px;
+        text-align: center;
+        padding: 3px 3px;
+        background-color: $red;
+        color: $white;
+        font-weight: $font-w-md;
       }
 
     }
@@ -338,7 +371,7 @@ export default {
 }
 
 
-@media (max-width: 1224px) {
+@media (max-width: 1199px) {
 
 
   #box-primary {
