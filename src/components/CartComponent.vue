@@ -1,5 +1,4 @@
 <template>
-
     <div class="cart" :class="{ 'show': store.cartShow }">
 
 
@@ -22,21 +21,27 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="store.cart.length >= 1" class="text-center text-danger fw-bold fs-5">{{ store.totalPrice }}&euro;</div>
-                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> <button
-                        @click="resetOrder()">Resetta</button>
-                    <router-link :to="{ name: 'check-out' }"><button>Compra</button></router-link>
+
+                <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
+                <div class="text-center cart-buttons" v-if="store.cart.length >= 1"> 
+                    <button @click="resetOrder()">Resetta</button>
+                    <router-link :to="{ name: 'check-out' , params:{slug: restaurantSlug} }"  @click="store.cartShow = false"><button>Compra</button></router-link>
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
 
-
         </div>
 
-    </div>
+</div>
 </template>
 
 <script>
+
+
+
+
+
+
 import { store } from '../store'
 import Swal from 'sweetalert2';
 
@@ -44,23 +49,30 @@ export default {
     data() {
         return {
             store,
+            restaurantSlug : 'aaa'
         }
+    },
+    computed :{
+       
     },
     methods: {
         addQuantity(dish, i) {
             store.cart[i].quantity++
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity++
-            localStorage.setItem(dish.slug, JSON.stringify(item))
+            localStorage.setItem('cart', JSON.stringify(cart))
         },
         removeQuantity(dish, i) {
-            const item = JSON.parse(localStorage.getItem(dish.slug))
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            const item = cart.find(item => item.id === dish.id);
             item.quantity--
             if (item.quantity) {
-                localStorage.setItem(dish.slug, JSON.stringify(item))
-                store.cart[i].quantity--
+                localStorage.setItem('cart', JSON.stringify(cart));
+                store.cart[i].quantity--;
             } else {
-                localStorage.removeItem(dish.slug)
+                cart = cart.filter((element) => element.slug !== dish.slug)
+                localStorage.setItem('cart', JSON.stringify(cart));
                 store.cart.splice(i, 1)
             }
         },
@@ -98,6 +110,10 @@ export default {
                 total += store.cart[i].price * store.cart[i].quantity
             }
             store.totalPrice = total
+        },
+        getRestaurantSLug(){
+            this.restaurantSlug =  localStorage.getItem('restaurantSlug') || 'aaa'
+
         }
 
     },
@@ -111,6 +127,7 @@ export default {
     },
     mounted() {
         this.getTotal()
+        this.getRestaurantSLug()
     }
 }
 
@@ -119,7 +136,12 @@ export default {
 <style lang="scss" scoped>
 @use '../assets/styles/partials/_variables' as *;
 
-
+.price{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: $red;
+}
 .cart {
     width: 100%;
 }
@@ -215,6 +237,10 @@ export default {
                     background-color: $red;
                     color: white;
                 }
+                &:last-child:hover{
+                    background-color: $orange;
+
+                }
             }
         }
     }
@@ -222,7 +248,7 @@ export default {
 
 
 
-@media (max-width: 1224px) {
+@media (max-width: 1199px) {
 
     .cart {
         position: absolute;

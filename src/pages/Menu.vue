@@ -15,7 +15,7 @@
               <div class="ms-3">
                 <h4>{{ menu.name }}</h4>
                 <span v-for="(tipo, index) in menu.types" class="text-capitalize">
-                  {{ index<menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
+                  {{ index < menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
                     <div v-if="isIntervalActive()">
                       <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante
                         aperto</span>
@@ -33,14 +33,14 @@
                   <div class="img-box col-5">
                     <img v-if="dish.image" :src="`${store.imagBasePath}${dish.image}`" alt="">
                     <img v-else src="/img/dd-slide.png" alt="">
+                    <div class="price">{{ dish.price }} &nbsp;&euro; </div>
                   </div>
                   <div class="dish-info px-3 pt-2 col-7">
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
-                    <div>{{ dish.price }} &nbsp;&euro; </div>
-                    <div class="ingredients">{{ dish.ingredients }}</div>
+                    <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish)"><i
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish, menu.slug)"><i
                       class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
@@ -54,26 +54,26 @@
         </div>
 
         <!-- <div v-for="(category, i) in categories" :key="i">
-          <div v-if="restaurantCategories.includes(category.name)">
-            <h2 class="title" >{{ category.name }}</h2>
-            <div class="d-flex flex-wrap">
-              <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-                <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
+                                                    <div v-if="restaurantCategories.includes(category.name)">
+                                                      <h2 class="title" >{{ category.name }}</h2>
+                                                      <div class="d-flex flex-wrap">
+                                                        <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                          <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div> -->
         <!-- <div v-for="(item, i) in restaurantMenu" :key="i">
-          <h2 class="title" >{{ item.category }}</h2>
-          <div class="d-flex flex-wrap">
-            <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-              {{ dish.name }}
-            </div>
-          </div>
-        </div> -->
+                                                    <h2 class="title" >{{ item.category }}</h2>
+                                                    <div class="d-flex flex-wrap">
+                                                      <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                        {{ dish.name }}
+                                                      </div>
+                                                    </div>
+                                                  </div> -->
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -94,7 +94,7 @@ export default {
       categories: [],
       restaurantCategories: [],
       restaurantMenu: null,
-      vueLocalStorage: ''
+      vueLocalStorage: []
     };
   },
   watch: {
@@ -109,16 +109,11 @@ export default {
     this.getDishes();
     store.cart = this.getAllCart
     this.getStorageKeys()
-    console.log(store.cart)
     this.getCategories();
   },
   computed: {
     getAllCart() {
-      let storage = []
-      let keys = Object.keys(localStorage)
-      for (let i = 0; i < keys.length; i++) {
-        storage.push(JSON.parse(localStorage.getItem(keys[i])))
-      }
+      let storage = JSON.parse(localStorage.getItem('cart')) || [];
       return storage;
     },
 
@@ -128,7 +123,7 @@ export default {
       axios
         .get(`${this.store.apiBaseUrl}/restaurants/${this.$route.params.slug}`)
         .then((response) => {
-          // console.log(response.data.results);
+          console.log(response.data.results);
           if (response.data.success) {
             this.menu = response.data.results;
 
@@ -181,25 +176,37 @@ export default {
       const closingTime = parseInt(this.menu.closing_hours.split(":")[0]) + parseInt(this.menu.closing_hours.split(":")[1]) / 60;
       return currentTime >= openingTime && currentTime <= closingTime;
     },
-    tryAddToCart(dish) {
-      // console.log(localStorage)
-      if (localStorage.length) {
-        const keys = Object.keys(localStorage)
-        const restaurantId = JSON.parse(localStorage.getItem(keys[0])).restaurant_id
+    tryAddToCart(dish, restaurantSlug) {
+      console.log(restaurantSlug)
+      const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
+      if (isNotEmpty) {
+        const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;
         if (dish.restaurant_id != restaurantId) {
           this.sendError()
           return
         } else {
-          this.addToCart(dish)
+          this.addToCart(dish, restaurantSlug)
           return
         }
       }
-      this.addToCart(dish)
+      this.addToCart(dish, restaurantSlug)
     },
-    addToCart(dish) {
+    addToCart(dish, restaurantSlug) {
+
+      localStorage.setItem('restaurantSlug', restaurantSlug);
+
       dish.quantity = 1
       store.cart.push(dish)
-      localStorage.setItem(dish.slug, JSON.stringify(dish))
+      if (localStorage.getItem('cart')) {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+      else {
+        const cart = [];
+        cart.push(dish);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -218,7 +225,14 @@ export default {
       });
     },
     getStorageKeys() {
-      this.vueLocalStorage = Object.keys(localStorage)
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      this.vueLocalStorage = [];
+      if (cart && cart.length) {
+        for (let i = 0; i < cart.length; i++) {
+          this.vueLocalStorage.push(cart[i].slug);
+        }
+
+      }
     },
 
 
@@ -284,12 +298,25 @@ export default {
     .img-box {
       // width: 140px;
       height: 136px;
+      position: relative;
 
       img {
         width: 100%;
         height: 100%;
         display: block;
         object-fit: cover;
+      }
+
+      .price {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 75px;
+        text-align: center;
+        padding: 3px 3px;
+        background-color: $red;
+        color: $white;
+        font-weight: $font-w-md;
       }
 
     }
@@ -338,7 +365,7 @@ export default {
 }
 
 
-@media (max-width: 1224px) {
+@media (max-width: 1199px) {
 
 
   #box-primary {
