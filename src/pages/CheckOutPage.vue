@@ -60,47 +60,16 @@
                 <input class="" type="text" name="telephone" id="telephone" placeholder="Telefono" required maxlength="10"
                   v-model="phoneNumber" />
               </div>
-              <h3 class="py-2 text-bold">Come vuoi pagare?</h3>
-              <a class="btn button credit-card mb-4" @click.prevent="purchase()">
-                <i class="fa-solid fa-credit-card"></i> Carta di Credito</a>
+              <h3 class="py-2 text-bold">Paga con Carta di Credito</h3>
+              <!-- <a class="btn button credit-card mb-4" @click.prevent="purchase()">
+                <i class="fa-solid fa-credit-card"></i> Carta di Credito</a> -->
 
             </form>
             <div>
               <PaymentComponent />
             </div>
           </div>
-          <div class="riepilogo-down">
-            <h3 class="py-2 text-bold my-3">Inserisci i tuoi dati </h3>
-            <form class="col-12 text-start">
-              <p class="mx-1 text-uppercase">Nome e cognome *</p>
-              <div class="input mb-2">
-                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required
-                  v-model="name" />
-              </div>
-              <p class="mx-1 text-uppercase">E-mail *</p>
-              <div class="input mb-2">
-                <input class="" type="email" name="email" id="email" placeholder="E-mail" required v-model="email" />
-              </div>
-              <p class="mx-1 text-uppercase">Indirizzo *</p>
-              <div class="input mb-2">
-                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" required
-                  v-model="address" />
-              </div>
-              <p class="mx-1 text-uppercase">Telefono *</p>
-              <div class="input mb-5">
-                <input class="" type="text" name="telephone" id="telephone" placeholder="Telefono" required
-                  maxlength="10" v-model="phoneNumber" />
-              </div>
-              <!-- <h3 class="py-2 text-bold">Come vuoi pagare?</h3>
-              <a class="btn button credit-card mb-4" @click.prevent="purchase()">
-                <i class="fa-solid fa-credit-card"></i> Carta di Credito</a
-              > -->
-
-            </form>
-            <div>
-              <PaymentComponent />
-            </div>
-          </div>
+        
         </div>
       </div>
 
@@ -155,10 +124,10 @@ export default {
     return {
       store,
       menu: [],
-      name: 'Leonardo',
-      email: 'leonardo@gmail.com',
-      address: 'Via Roma 21',
-      phoneNumber: '561561651',
+      name: '',
+      email: '',
+      address: '',
+      phoneNumber: '',
     };
   },
   mounted() {
