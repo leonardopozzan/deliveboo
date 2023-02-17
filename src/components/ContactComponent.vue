@@ -1,5 +1,6 @@
 <template>
     <section class="contact_me" id="form">
+        <div class="overlay"></div>
         <div class="inner-wrapper">
             <div class="container-fluid ">
                 <h2 class="text-uppercase text-center clienti">servizio clienti</h2>
@@ -32,15 +33,15 @@
 
                         <div class="input">
                             <textarea class="" name="message" id="message" cols="30" rows="5"
-                                placeholder="IL TUO MESSAGGIO *" v-model="message"
-                                :class="{ 'is-invalid': errors.message }" required></textarea>
+                                placeholder="IL TUO MESSAGGIO *" v-model="message" :class="{ 'is-invalid': errors.message }"
+                                required></textarea>
                             <p v-for="(error, index) in errors.message" :key="index" class="invalid-feedback">
                                 {{ error }}
                             </p>
                         </div>
 
                         <button class="btn text-uppercase text-white btn-invio-email" type="submit" :disabled="loading">
-                            {{ loading?'Inviando...': 'Invia' }}
+                            {{ loading ? 'Inviando...' : 'Invia' }}
                         </button>
                     </form>
                     <p class="pt-2">Puoi anche contattarci al nostro numero clienti: 039 95 30 555</p>
@@ -104,6 +105,25 @@ export default {
     background-position: center;
     width: 60%;
     margin: 3rem auto;
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+    }
+
+
+    .inner-wrapper {
+        position: relative;
+        z-index: 100;
+
+        color: $white;
+    }
 
     .input {
         max-width: 100%;
@@ -131,6 +151,7 @@ export default {
     .btn-invio-email {
         background-image: linear-gradient(180deg, $red, $orange);
     }
+
 }
 
 .clienti {
