@@ -26,7 +26,7 @@
 
                 <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
                 <div class="text-center cart-buttons" v-if="store.cart.length >= 1">
-                    <button @click="resetOrder()">Resetta</button>
+                    <button class="reset-btn" @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out', params: { slug: restaurantSlug } }"
                         @click="store.cartShow = false"><button>Compra</button></router-link>
                 </div>
@@ -273,22 +273,40 @@ export default {
                 margin-top: 8px;
                 padding: 6px 12px;
                 border-radius: 6px;
-                background-color: transparent;
-                transition: all 0.4s cubic-bezier(.215, .61, .355, 1);
+                
+                position: relative;
+                display: inline-block;
+                text-align: center;
+                letter-spacing: 1px;
+                text-decoration: none;
+                color: $red;
+                background: transparent;
+                cursor: pointer;
+                transition: ease-out 0.5s;
+                border: 2px solid $red;
+                border-radius: 10px;
+                box-shadow: inset 0 0 0 0 $red;
 
-                &:first-child {
+                &:hover{
+                  color: white;
+                    box-shadow: inset 0 -100px 0 0 $red;
+                }
+                &:active{
+                  transform: scale(0.9);
+                }
+
+                &.reset-btn {
                     margin-right: 12px;
+                    color: $orange;
+                    border: 2px solid $orange;
+                    box-shadow: inset 0 0 0 0 $orange;
+                    &:hover{
+                        box-shadow: inset 0 -100px 0 0 $orange;
+                  color: white;
+
+                    }
                 }
 
-                &:hover {
-                    background-color: $red;
-                    color: white;
-                }
-
-                &:last-child:hover {
-                    background-color: $orange;
-
-                }
             }
         }
     }

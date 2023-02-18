@@ -47,7 +47,7 @@ export default {
     },
 
     mounted() {
-        setTimeout(this.getRestaurants, 2500);
+        setTimeout(this.getRestaurants, 2000);
         //this.getRestaurants();
         this.getRestaurantsTypes();
     },
@@ -148,7 +148,7 @@ div {
     font-size: 130px;
     font-family: "franklin gothic medium", sans-serif;
     display: inline-block;
-    animation: flip 2.6s infinite linear;
+    animation: flip 2s infinite linear;
     transform-origin: 0 70%;
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
@@ -171,26 +171,26 @@ div {
 }
 
 .loader>span:nth-child(2) {
-    animation-delay: 0.3s;
+    animation-delay: 0.2s;
 }
 
 .loader>span:nth-child(3) {
-    animation-delay: 0.6s;
+    animation-delay: 0.5s;
 }
 
 .loader>span:nth-child(4) {
-    animation-delay: 0.9s;
+    animation-delay: 0.8s;
 }
 
 .loader>span:nth-child(5) {
-    animation-delay: 1.2s;
+    animation-delay: 1.1s;
 }
 
 .loader>span:nth-child(6) {
-    animation-delay: 1.5s
+    animation-delay: 1.4s
 }
 
 .loader>span:nth-child(7) {
-    animation-delay: 1.8s
+    animation-delay: 1.7s
 }
 </style>

@@ -13,5 +13,5 @@ export const store = reactive({
 
     cartShow: false,
 
-
+    loading : false,
 });
