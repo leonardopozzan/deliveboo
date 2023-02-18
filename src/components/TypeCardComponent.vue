@@ -2,8 +2,8 @@
   <h2>Cosa Mangiamo oggi ?</h2>
   <p>Beh se la scelta non è ovvia questa e la selezione delle pietanze più ordinate dalla community di FoodLover come
     te!</p>
-  <div v-if="types.length" class=" row g-3">
-
+  <div v-if="types.length">
+    <TransitionGroup name="list" tag="ul"  class=" row g-3">
     <div v-for="(item, i) in filteredTypes" :key="item.id" class="col-12 col-md-6 col-lg-4">
       <router-link :to="{ name: 'restaurants', query: { type: item.slug } }">
         <div class="card my-cards">
@@ -20,7 +20,7 @@
         </div>
       </router-link>
     </div>
-
+  </TransitionGroup>
   </div>
 
   <div class="bottone my-5">
@@ -137,5 +137,14 @@ p {
 .button-more:hover {
   box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
   transform: scale(1.05) rotate(-1deg);
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
 }
 </style>
