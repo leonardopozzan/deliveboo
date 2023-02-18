@@ -15,11 +15,11 @@
                             <img v-else src="/img/dd-slide.png" alt="">
                             <div class="pricex">{{ item.price }} &nbsp;&euro; </div>
                         </div>
-                        <div class="text-capitalize me-3">{{ item.name }} </div>
+                        <span class="text-capitalize me-3">{{ item.name }} </span>
                         <div class="d-flex">
-                            <button @click="removeQuantity(item, i)"> - </button>
+                            <button class="btn-cart" @click="removeQuantity(item, i)"> - </button>
                             <span class="px-2">{{ item.quantity }}</span>
-                            <button @click="addQuantity(item, i)"> + </button>
+                            <button class="btn-cart" @click="addQuantity(item, i)"> + </button>
                         </div>
                     </div>
                 </div>
@@ -193,11 +193,19 @@ export default {
             display: none;
         }
 
-
-        button {
+        span{
+            font-weight: 500;
+        }
+        .btn-cart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            width: 25px;
+            height: 25px;
             border: 0;
             background-color: $white;
-            border-radius: 10px;
+            border-radius: 50%;
 
             &:hover {
                 background-color: $orange;
@@ -228,12 +236,23 @@ export default {
                 position: absolute;
                 top: 10px;
                 right: 10px;
-                display: none;
+                // display: none;
                 color: $red;
                 font-weight: bolder;
                 font-size: $font-md;
-            }
+                transition: 0.5s;
 
+                &:hover{
+                    animation: tilt-shaking 0.2s ease 0s 4;
+                }
+            }
+            @keyframes tilt-shaking {
+              0% { transform: rotate(0deg); }
+              25% { transform: rotate(8deg); }
+              50% { transform: rotate(0eg); }
+              75% { transform: rotate(-8deg); }
+              100% { transform: rotate(0deg); }
+              }
             .img-box {
                 width: 90px;
                 height: 90px;
@@ -364,7 +383,12 @@ export default {
     .my-cart {
 
         .inner-cart {
+            .btn-cart {
+            font-size: 18px;
+            width: 20px;
+            height: 20px;
 
+        }
             .cart-item {
 
                 padding: 16px;

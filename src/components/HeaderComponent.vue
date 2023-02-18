@@ -30,7 +30,7 @@
         </div>
 
         <div class="hamburger">
-          <i class="fa-solid fa-bars" @click="menuToggle"></i>
+          <i class="fa-solid fa-bars fs-5" @click="menuToggle"></i>
           <button class="my-cart" @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
               class="fa-solid fa-cart-shopping"></i></button>
         </div>
