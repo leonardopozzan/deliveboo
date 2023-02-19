@@ -7,11 +7,10 @@
             </div>
             <div class="cards-box container-lg py-4">
                 <div v-if="restaurants.length" class="row g-3">
-                    <RestaurantCardComponent v-for="(restaurant, i) in restaurants" :restaurant="restaurant"
-                        :types=types>
+                    <RestaurantCardComponent v-for="(restaurant, i) in restaurants" :restaurant="restaurant" :types=types>
                     </RestaurantCardComponent>
                 </div>
-                <div v-else class="container-loader loader">
+                <div v-else id="loader" class="container-loader loader">
                     <span>L</span>
                     <span>O</span>
                     <span>A</span>
@@ -192,5 +191,18 @@ div {
 
 .loader>span:nth-child(7) {
     animation-delay: 1.8s
+}
+
+
+
+
+@media (max-width: 768px) {
+
+    #loader {
+        span {
+            font-size: 50px;
+        }
+    }
+
 }
 </style>
