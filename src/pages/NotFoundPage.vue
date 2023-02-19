@@ -29,7 +29,8 @@
   <div class="error__content">
     <div class="error__message message">
       <h1 class="message__title">Page Not Found</h1>
-      <p class="message__text">We're sorry, the page you were looking for isn't found here. The link you followed may either be broken or no longer exists. Please try again, or take a look at our.</p>
+      <p class="message__text"> Ci scusiamo per l'inconveniente, probabilmente il link che hai inserito non funziona o non esiste più. Per piacere riprova o torna alla home</p>
+      
     </div>
     <div class="error__nav e-nav">
       <router-link class="e-nav__link text-danger" to="/">
@@ -307,7 +308,7 @@ button {
   vertical-align: top;
   margin: 0 15px;
   border: 1px solid #181828;
-  color: #181828;
+  color: red;
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
@@ -340,6 +341,8 @@ button {
 
 .e-nav__link:after {
   content: "Home Page";
+  color: #fff;
+
 }
 
 .e-nav__link:hover:before {
@@ -348,7 +351,7 @@ button {
 }
 
 .e-nav__link:hover {
-  color: #fff;
+  color: #fff!important;
 }
 
 .e-nav__link:nth-child(2):hover:after {
