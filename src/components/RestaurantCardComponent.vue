@@ -1,6 +1,6 @@
 <template>
     <div class="col-sm-6 col-lg-4">
-     <router-link :to="{name:'menu', params:{slug:restaurant.slug}}">
+        <router-link :to="{ name: 'menu', params: { slug: restaurant.slug } }">
             <div class="card-box">
                 <div class="card-image">
                     <img :src="`${store.imagBasePath}${restaurant.image}`" :alt="restaurant.name" v-if="restaurant.image">
@@ -14,10 +14,10 @@
                     <h5 class="mb-1">{{ restaurant.name }}</h5>
                     <span v-for="(type, i) in restaurant.types" class="text-capitalize">
 
-                    {{(i < (restaurant.types.length - 1)) ? type.name + ', ' : type.name  }} </span>
+                        {{ (i < (restaurant.types.length - 1)) ? type.name + ', ' : type.name }} </span>
                 </div>
             </div>
-     </router-link>
+        </router-link>
     </div>
 </template>
 
@@ -70,16 +70,23 @@ export default {
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
 
 
+    &:hover .card-image img {
+        transform: scale(1.2);
+    }
+
+
     .card-image {
         width: 100%;
         height: 186px;
         position: relative;
+        overflow: hidden;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: all 1s cubic-bezier(.215, .61, .355, 1);
         }
 
 
