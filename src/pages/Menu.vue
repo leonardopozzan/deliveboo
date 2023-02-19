@@ -40,8 +40,8 @@
                     <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
                   <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }" @click="tryAddToCart(dish, menu.slug)"><i
-                      class="fa-solid fa-cart-shopping"></i></button>
+                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }"
+                    @click="tryAddToCart(dish, menu.slug)"><i class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
             </div>
@@ -54,26 +54,26 @@
         </div>
 
         <!-- <div v-for="(category, i) in categories" :key="i">
-                                                    <div v-if="restaurantCategories.includes(category.name)">
-                                                      <h2 class="title" >{{ category.name }}</h2>
-                                                      <div class="d-flex flex-wrap">
-                                                        <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-                                                          <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div> -->
+                                                          <div v-if="restaurantCategories.includes(category.name)">
+                                                            <h2 class="title" >{{ category.name }}</h2>
+                                                            <div class="d-flex flex-wrap">
+                                                              <div  v-for="(dish,j) in menu.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                                <div class="my-card " v-if="category.name == dish.category.name" >{{ dish.name }} </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div> -->
         <!-- <div v-for="(item, i) in restaurantMenu" :key="i">
-                                                    <h2 class="title" >{{ item.category }}</h2>
-                                                    <div class="d-flex flex-wrap">
-                                                      <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
-                                                        {{ dish.name }}
-                                                      </div>
-                                                    </div>
-                                                  </div> -->
+                                                          <h2 class="title" >{{ item.category }}</h2>
+                                                          <div class="d-flex flex-wrap">
+                                                            <div  v-for="(dish,j) in item.dishes" :key="j" class="col-12 col-md-6 col-lg-4">
+                                                              {{ dish.name }}
+                                                            </div>
+                                                          </div>
+                                                        </div> -->
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -285,6 +285,7 @@ export default {
     -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.54);
 
+
     &:hover button {
       cursor: pointer;
       visibility: visible;
@@ -295,16 +296,22 @@ export default {
       display: block;
     }
 
+    &:hover .img-box img {
+      transform: scale(1.1);
+    }
+
     .img-box {
       // width: 140px;
       height: 136px;
       position: relative;
+      overflow: hidden;
 
       img {
         width: 100%;
         height: 100%;
         display: block;
         object-fit: cover;
+        transition: all 1s cubic-bezier(.215, .61, .355, 1);
       }
 
       .price {
