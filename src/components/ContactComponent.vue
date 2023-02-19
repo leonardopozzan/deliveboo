@@ -9,9 +9,9 @@
                     il prima
                     possibile.
                 </p>
-                <div v-if="success" class="alert alert-success text-start" role="alert">
+                <!-- <div v-if="success" class="alert alert-success text-start" role="alert">
                     Messaggio inviato con successo!
-                </div>
+                </div> -->
                 <div class="row">
                     <form class="col-12 text-start" @submit.prevent="sendForm()">
                         <div class="input">
@@ -54,6 +54,7 @@
 <script>
 import axios from 'axios';
 import { store } from '../store';
+import Swal from 'sweetalert2';
 export default {
     name: 'ContactComponent',
     data() {
@@ -83,6 +84,13 @@ export default {
                     this.name = '';
                     this.email = '';
                     this.message = '';
+                    Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'L\'email è stata inviata',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
                 }
                 this.loading = false;
             });
