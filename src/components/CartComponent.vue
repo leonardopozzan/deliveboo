@@ -236,7 +236,7 @@ export default {
                 position: absolute;
                 top: 10px;
                 right: 10px;
-                // display: none;
+                display: none;
                 color: $red;
                 font-weight: bolder;
                 font-size: $font-md;

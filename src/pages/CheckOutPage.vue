@@ -138,10 +138,10 @@ export default {
     return {
       store,
       menu: [],
-      name: 'leonardo pozzan',
-      email: 'leonardo@gmail.com',
-      address: 'via grande marco pisa',
-      phoneNumber: '1325469874',
+      name: '',
+      email: '',
+      address: '',
+      phoneNumber: '',
       errors: {},
       pay: false
     };
