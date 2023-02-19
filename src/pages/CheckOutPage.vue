@@ -434,5 +434,12 @@ export default {
   transition-delay: 0s;
 
 }
+
+@media screen  and (max-width: 575px) {
+  .my-height{
+  height: 500px;
+}
+
+}
 </style>
 
