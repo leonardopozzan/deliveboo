@@ -41,33 +41,45 @@
           </div>
           <div class="riepilogo-down">
             <h3 class="py-2 text-bold my-3">Inserisci i tuoi dati </h3>
-            <form class="col-12 text-start">
+            <form class="col-12 text-start" id="order-form">
               <p class="mx-1 text-uppercase">Nome e cognome *</p>
               <div class="input mb-2">
-                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome" required maxlength="100" v-model="name" />
+                <input class="" type="text" name="name" id="name" placeholder="Nome e cognome"  maxlength="100" v-model="name" :class="{ 'is-invalid': errors.name }" :readonly="pay" required/>
+                <p v-for="(error, index) in errors.name" :key="index" class="invalid-feedback">
+                  {{ error }}
+                </p>
               </div>
               <p class="mx-1 text-uppercase">E-mail *</p>
               <div class="input mb-2">
-                <input class="" type="email" name="email" id="email" placeholder="E-mail" required maxlength="100" v-model="email" />
+                <input class="" type="email" name="email" id="email" placeholder="E-mail"  maxlength="100" v-model="email" :class="{ 'is-invalid': errors.email }" :readonly="pay" required />
+                <p v-for="(error, index) in errors.email" :key="index" class="invalid-feedback">
+                  {{ error }}
+                </p>
               </div>
               <p class="mx-1 text-uppercase">Indirizzo *</p>
               <div class="input mb-2">
-                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" maxlength="150" required
-                  v-model="address" />
+                <input class="" type="text" name="address" id="address" placeholder="Indirizzo" maxlength="150"  v-model="address" :class="{ 'is-invalid': errors.address }" :readonly="pay" required />
+                <p v-for="(error, index) in errors.address" :key="index" class="invalid-feedback">
+                  {{ error }}
+                </p>
               </div>
               <p class="mx-1 text-uppercase">Telefono *</p>
               <div class="input mb-5">
-                <input class="" type="text" name="phoneNumber" id="phoneNumber" placeholder="Telefono" required maxlength="10"
-                  v-model="phoneNumber" />
+                <input class="" type="text" name="phoneNumber" id="phoneNumber" placeholder="Telefono"  maxlength="10" v-model="phoneNumber" :class="{ 'is-invalid': errors.phoneNumber }" :readonly="pay" required/>
+                <p v-for="(error, index) in errors.phoneNumber" :key="index" class="invalid-feedback">
+                  {{ error }}
+                </p>
               </div>
-              <h3 class="py-2 text-bold">Paga con Carta di Credito</h3>
               <!-- <a class="btn button credit-card mb-4" @click.prevent="purchase()">
                 <i class="fa-solid fa-credit-card"></i> Carta di Credito</a> -->
-
+                <button @click.prevent="validate()"  :disabled="store.loading"  class="validate-button">{{ pay ? 'Modifica i dati' : 'Procedi al pagamento'}}</button>
             </form>
-            <div>
-              <PaymentComponent />
-            </div>
+            <Transition>
+              <div v-if="pay" class="my-height">
+                <h3 class="py-2 text-bold">Paga con Carta di Credito</h3>
+                <PaymentComponent />
+              </div>
+            </Transition>
           </div>
         
         </div>
@@ -115,6 +127,8 @@ import RedComponent from "../components/RedComponent.vue";
 import { Manipulation } from "swiper";
 import CartComponent from "../components/CartComponent.vue";
 import PaymentComponent from "../components/PaymentComponent.vue";
+import Swal from 'sweetalert2';
+
 
 
 export default {
@@ -128,6 +142,8 @@ export default {
       email: '',
       address: '',
       phoneNumber: '',
+      errors: {},
+      pay: false
     };
   },
   mounted() {
@@ -175,9 +191,79 @@ export default {
       axios.post(`${store.apiBaseUrl}/purchase`, data, { headers: { "Content-Type": "multipart/form-data" } }).then((response) => {
         console.log(response.data.results)
         console.log(response.data.order)
-
+        store.loading= false;
+        if (!response.data.success) {
+            this.errors = response.data.errors;
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'I dati non sono corretti',
+              showConfirmButton: false,
+              timer: 1500
+            });
+        } else {
+          this.name = '';
+          this.email = '';
+          this.address = '';
+          this.phoneNumber = '';
+          localStorage.setItem('cart', JSON.stringify([]))
+          store.cart = []
+          setTimeout(()=>this.pay=false,2000)
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'L\'ordine è stato effettuato',
+            showConfirmButton: false,
+            timer: 1500
+          });
+         
+        }
       })
 
+    },
+    validate(){
+      if(this.pay){
+        this.pay = false
+        return
+      }
+      if(!store.cart.length){
+        Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Il carrello è vuoto',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            return
+      }
+      const form = document.getElementById('order-form')
+      const check = form.checkValidity()
+      console.log(check)
+      const data = {
+        name: this.name,
+        email: this.email,
+        address: this.address,
+        phoneNumber: this.phoneNumber,
+      }
+      if(check){
+        axios.post(`${store.apiBaseUrl}/checkform`, data, { headers: { "Content-Type": "multipart/form-data" } }).then((response) => {
+          if (!response.data.success) {
+            this.errors = response.data.errors;
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'I dati non sono corretti',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }else{
+            this.errors = {}
+            this.pay = true
+          }
+        })
+      }else{
+        form.reportValidity()
+      }
     }
   },
   watch: {
@@ -297,9 +383,56 @@ export default {
   }
 }
 
+.my-height{
+  height: 400px;
+}
+
+.validate-button{
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 500;
+
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: $orange;
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid $orange;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 $orange;
+
+  &:hover{
+    color: white;
+  box-shadow: inset 0 -100px 0 0 $orange;
+  }
+  &:active{
+    transform: scale(0.9);
+  }
+}
+
 .margin-negativo {
 
   margin-top: -60px !important;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+  transition-delay: 0.8s;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transition-delay: 0s;
+
 }
 </style>
 

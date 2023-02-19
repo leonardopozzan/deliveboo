@@ -13,8 +13,8 @@
         <div class="menu-link">
           <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
           <router-link to="/contact"><span>Contatti</span></router-link>
-          <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
-          <button @click="showCart">
+          <a href="http://127.0.0.1:8000/" target="_blank"><span>Sei un Ristoratore?</span></a>
+          <button class="my-cart" @click="showCart">
             <span class="dot" v-show="store.cart.length >= 1">{{ getTotalItem }}</span>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
@@ -30,8 +30,8 @@
         </div>
 
         <div class="hamburger">
-          <i class="fa-solid fa-bars" @click="menuToggle"></i>
-          <button @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
+          <i class="fa-solid fa-bars fs-5" @click="menuToggle"></i>
+          <button class="my-cart" @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
               class="fa-solid fa-cart-shopping"></i></button>
         </div>
 
@@ -285,4 +285,21 @@ export default {
 
   }
 }
+
+
+.my-cart{
+  transition: 0.5s;
+  &:hover{
+    animation: tilt-shaking 0.2s ease 0s 5;
+
+}
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+  }
 </style>

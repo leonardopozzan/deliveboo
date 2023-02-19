@@ -26,12 +26,12 @@ const pathHomeImg=[
     },
     {
      img:'img/cibo-domicilio-1.png',
-     title:'Serata con gli amici ?',
-    desc:'Ospiti improvvisi a casa tua e non hai tempo per preparare qualcosa ? Nessun problema , segli il meglio per i tuoi amici e goditi la serata '
+     title:'Serata con gli amici?',
+    desc:'Ospiti improvvisi a casa tua e non hai tempo per preparare qualcosa? Nessun problema , segli il meglio per i tuoi amici e goditi la serata '
     },
     {
      img:'img/cibo-domicilio-3.png',
-     title:'Quanta fame hai ?',
+     title:'Quanta fame hai?',
     desc:'Ordina velocemente dai ristoranti vicini a te .I nostri fattorini sono i più veloci di tutti !!'
     },
     {

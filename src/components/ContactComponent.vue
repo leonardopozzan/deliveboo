@@ -40,8 +40,8 @@
                             </p>
                         </div>
 
-                        <button class="btn text-uppercase text-white btn-invio-email" type="submit" :disabled="loading">
-                            {{ loading ? 'Inviando...' : 'Invia' }}
+                        <button class="text-uppercase btn-invio-email" type="submit" :disabled="loading">
+                            {{ loading ? 'Atendi...' : 'Invia' }}
                         </button>
                     </form>
                     <p class="pt-2">Puoi anche contattarci al nostro numero clienti: 039 95 30 555</p>
@@ -149,7 +149,29 @@ export default {
     }
 
     .btn-invio-email {
-        background-image: linear-gradient(180deg, $red, $orange);
+        padding: 0.4rem 0.8rem;
+  text-align: center;
+        position: relative;
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+  border: 2px solid white;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 0 white;
+
+
+  &:hover{
+    color: black;
+  box-shadow: inset 0 -100px 0 0 white;
+  }
+  &:active{
+    transform: scale(0.9);
+  }
     }
 
 }

@@ -15,7 +15,7 @@
               <div class="ms-3">
                 <h4>{{ menu.name }}</h4>
                 <span v-for="(tipo, index) in menu.types" class="text-capitalize">
-                  {{ index < menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
+                  {{ index<menu.types.length - 1 ? tipo.name + ", " : tipo.name }} </span>
                     <div v-if="isIntervalActive()">
                       <span class="text-success"><i class="fa-solid fa-circle text-success"> </i>Ristorante
                         aperto</span>
@@ -381,9 +381,30 @@ export default {
     height: 100%;
 
     .menu {
-
       width: 100%;
       display: block !important;
+    }
+
+  }
+
+}
+
+
+@media (max-width: 576px) {
+  #box-primary {
+    .menu {
+      .my-card {
+        .inner-card {
+          button {
+            height: 38px;
+            width: 38px;
+            opacity: 1!important;
+            visibility: visible;
+            font-size: 1rem;
+
+          }
+        }
+      }
     }
 
   }
