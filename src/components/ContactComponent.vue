@@ -157,4 +157,18 @@ export default {
 .clienti {
     font-family: 'Itim', cursive;
 }
+
+
+
+
+@media (max-width: 768px) {
+
+    #form {
+        padding: 2rem 12px;
+        width: 92%;
+        margin: 2rem auto;
+
+    }
+
+}
 </style>
