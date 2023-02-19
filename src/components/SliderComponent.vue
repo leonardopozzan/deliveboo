@@ -1,5 +1,5 @@
+
 <template>
-    <!-- Slider main container -->
     <swiper :modules="modules" :slides-per-view="1" :space-between="10" :breakpoints="{
         '425': {
             slidesPerView: 2,
@@ -137,11 +137,22 @@ export default {
 
 
 .swiper {
+
+    padding: 4px 4px;
+
     .swiper-slide {
         border-radius: 6px;
         overflow: hidden;
         cursor: pointer;
         opacity: 0.6;
+        border: 3px solid transparent;
+        outline: 3px solid transparent;
+        transition: all 0.4s cubic-bezier(.215, .61, .355, 1);
+
+
+        &:hover {
+            outline: 3px solid $red;
+        }
 
         .slide-image {
             height: 134px;
