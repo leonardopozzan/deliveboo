@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             store,
-            restaurantSlug: 'aaa'
+            restaurantSlug: 'none'
         }
     },
     computed: {
@@ -116,8 +116,7 @@ export default {
             store.totalPrice = total
         },
         getRestaurantSLug() {
-            this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'aaa'
-
+            this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'none'
         },
         removeItem(item, i) {
             store.cart.splice(i, 1);
@@ -135,6 +134,7 @@ export default {
         'store.cart': {
             handler() {
                 this.getTotal()
+                this.getRestaurantSLug()
             },
             deep: true
         }
