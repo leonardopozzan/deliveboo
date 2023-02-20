@@ -25,7 +25,7 @@
           <div>
             <router-link to="/restaurants"><span>Tutti i Ristoranti</span></router-link>
             <router-link to="/contact"><span>Contatti</span></router-link>
-            <router-link to="/reviews"><span>Scrivici una recensione</span></router-link>
+            <a href="http://127.0.0.1:8000/" target="_blank"><span>Sei un Ristoratore?</span></a>
           </div>
         </div>
 
