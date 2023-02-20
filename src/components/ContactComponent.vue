@@ -41,7 +41,7 @@
                         </div>
 
                         <button class="text-uppercase btn-invio-email" type="submit" :disabled="loading">
-                            {{ loading ? 'Atendi...' : 'Invia' }}
+                            {{ loading ? 'Attendi...' : 'Invia' }}
                         </button>
                     </form>
                     <p class="pt-2">Puoi anche contattarci al nostro numero clienti: 039 95 30 555</p>
