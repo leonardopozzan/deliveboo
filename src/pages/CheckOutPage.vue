@@ -184,8 +184,6 @@ export default {
         email: this.email,
         address: this.address,
         phoneNumber: this.phoneNumber,
-        // totalPrice: store.totalPrice,
-        // cart: store.cart,
         totalPrice: storeX.getters.cartTotalPrice,
         cart: storeX.getters.cartItems,
         paymentStatus: store.paymentStatus
@@ -209,7 +207,6 @@ export default {
           this.address = '';
           this.phoneNumber = '';
           localStorage.setItem('cart', JSON.stringify([]))
-          // store.cart = []
           storeX.commit('resetCart')
           setTimeout(()=>this.pay=false,2000)
           Swal.fire({

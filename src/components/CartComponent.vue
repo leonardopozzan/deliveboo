@@ -62,33 +62,13 @@ export default {
     methods: {
         addQuantity(dish, i) {
             storeX.commit('addToCart', dish)
-
-            // store.cart[i].quantity++
-            // const cart = JSON.parse(localStorage.getItem('cart'));
-            // const item = cart.find(item => item.id === dish.id);
-            // item.quantity++
-            // localStorage.setItem('cart', JSON.stringify(cart))
         },
         removeQuantity(dish, i) {
             storeX.commit('removeFromCart', dish)
-
-            // let cart = JSON.parse(localStorage.getItem('cart'));
-            // const item = cart.find(item => item.id === dish.id);
-            // item.quantity--
-            // if (item.quantity) {
-            //     localStorage.setItem('cart', JSON.stringify(cart));
-            //     store.cart[i].quantity--;
-            // } else {
-            //     cart = cart.filter((element) => element.slug !== dish.slug)
-            //     localStorage.setItem('cart', JSON.stringify(cart));
-            //     store.cart.splice(i, 1)
-            // }
         },
         clearCart() {
             localStorage.clear()
             storeX.commit('resetCart')
-            // store.cart = [];
-
         },
         resetOrder() {
             Swal.fire({
@@ -110,44 +90,15 @@ export default {
                     )
                 }
             })
-
-
         },
-        // getTotal() {
-        //     let total = 0
-        //     for (let i = 0; i < store.cart.length; i++) {
-        //         total += (store.cart[i].price * store.cart[i].quantity)
-        //     }
-        //     total = total.toFixed(2)
-        //     store.totalPrice = total
-        // },
         getRestaurantSLug() {
             this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'none'
         },
         removeItem(item, i) {
             storeX.commit('deleteFromCart', item)
-            // store.cart.splice(i, 1);
-
-            // const cart = JSON.parse(localStorage.getItem('cart'));
-            // const index = cart.findIndex((element) => {
-            //     return element.id == item.id;
-            // });
-            // cart.splice(index, 1);
-            // localStorage.setItem('cart', JSON.stringify(cart));
         }
-
     },
-    // watch: {
-    //     'store.cart': {
-    //         handler() {
-    //             this.getTotal()
-    //             this.getRestaurantSLug()
-    //         },
-    //         deep: true
-    //     }
-    // },
     updated() {
-        // this.getTotal()
         this.getRestaurantSLug()
     }
 }

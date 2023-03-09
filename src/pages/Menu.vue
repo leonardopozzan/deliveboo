@@ -98,18 +98,8 @@ export default {
       vueLocalStorage: []
     };
   },
-  // watch: {
-  //   'store.cart': {
-  //     handler() {
-  //       this.getStorageKeys()
-  //     },
-  //     deep: true
-  //   }
-  // },
   mounted() {
     this.getDishes();
-    // store.cart = this.getAllCart
-    // this.getStorageKeys()
     this.getCategories();
   },
   computed: {
@@ -199,19 +189,6 @@ export default {
 
       localStorage.setItem('restaurantSlug', restaurantSlug);
       storeX.commit('addToCart', dish)
-
-      // dish.quantity = 1
-      // store.cart.push(dish)
-      // if (localStorage.getItem('cart')) {
-      //   const cart = JSON.parse(localStorage.getItem('cart'));
-      //   cart.push(dish);
-      //   localStorage.setItem('cart', JSON.stringify(cart));
-      // }
-      // else {
-      //   const cart = [];
-      //   cart.push(dish);
-      //   localStorage.setItem('cart', JSON.stringify(cart));
-      // }
       Swal.fire({
         position: 'center',
         icon: 'success',

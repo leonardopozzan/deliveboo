@@ -57,7 +57,6 @@ export default {
     };
   },
   mounted() {
-    // store.cart = this.getAllCart;
     if (this.$route.name === "home") {
       window.addEventListener("scroll", this.handleScroll);
     }
@@ -71,17 +70,7 @@ export default {
   computed: {
     getTotalItem() {
       return storeX.getters.cartTotalItems
-      // let total = 0
-      // for (let i = 0; i < store.cart.length; i++) {
-      //     total += store.cart[i].quantity
-      // }
-      // return total
     },
-  
-    // getAllCart() {
-    //   let storage = JSON.parse(localStorage.getItem('cart')) || [];
-    //   return storage;
-    // },
   },
   methods: {
     handleScroll() {
