@@ -128,7 +128,7 @@ import { Manipulation } from "swiper";
 import CartComponent from "../components/CartComponent.vue";
 import PaymentComponent from "../components/PaymentComponent.vue";
 import Swal from 'sweetalert2';
-
+import {storeX} from '../store/index'
 
 
 export default {
@@ -184,8 +184,8 @@ export default {
         email: this.email,
         address: this.address,
         phoneNumber: this.phoneNumber,
-        totalPrice: store.totalPrice,
-        cart: store.cart,
+        totalPrice: storeX.getters.cartTotalPrice,
+        cart: storeX.getters.cartItems,
         paymentStatus: store.paymentStatus
       }
       axios.post(`${store.apiBaseUrl}/purchase`, data, { headers: { "Content-Type": "multipart/form-data" } }).then((response) => {
@@ -207,7 +207,7 @@ export default {
           this.address = '';
           this.phoneNumber = '';
           localStorage.setItem('cart', JSON.stringify([]))
-          store.cart = []
+          storeX.commit('resetCart')
           setTimeout(()=>this.pay=false,2000)
           Swal.fire({
             position: 'center',
@@ -226,7 +226,7 @@ export default {
         this.pay = false
         return
       }
-      if(!store.cart.length){
+      if(!storeX.getters.cartTotalItems){
         Swal.fire({
               position: 'center',
               icon: 'error',

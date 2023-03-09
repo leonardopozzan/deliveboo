@@ -15,7 +15,7 @@
           <router-link to="/contact"><span>Contatti</span></router-link>
           <a href="http://127.0.0.1:8000/" target="_blank"><span>Sei un Ristoratore?</span></a>
           <button class="my-cart" @click="showCart">
-            <span class="dot" v-show="store.cart.length >= 1">{{ getTotalItem }}</span>
+            <span class="dot" v-show="getTotalItem >= 1">{{ getTotalItem }}</span>
             <i class="fa-solid fa-cart-shopping"></i>
           </button>
 
@@ -31,7 +31,7 @@
 
         <div class="hamburger">
           <i class="fa-solid fa-bars fs-5" @click="menuToggle"></i>
-          <button class="my-cart" @click="showCart"><span class="dot" v-show="store.cart.length >= 1">{{getTotalItem }}</span><i
+          <button class="my-cart" @click="showCart"><span class="dot" v-show="getTotalItem >= 1">{{getTotalItem }}</span><i
               class="fa-solid fa-cart-shopping"></i></button>
         </div>
 
@@ -45,6 +45,7 @@
 import Swal from 'sweetalert2';
 import { store } from '../store';
 import CartComponent from './CartComponent.vue';
+import {storeX} from '../store/index'
 
 export default {
   name: "HeaderComponent",
@@ -56,7 +57,6 @@ export default {
     };
   },
   mounted() {
-    store.cart = this.getAllCart;
     if (this.$route.name === "home") {
       window.addEventListener("scroll", this.handleScroll);
     }
@@ -69,16 +69,7 @@ export default {
   },
   computed: {
     getTotalItem() {
-      let total = 0
-      for (let i = 0; i < store.cart.length; i++) {
-          total += store.cart[i].quantity
-      }
-      return total
-    },
-  
-    getAllCart() {
-      let storage = JSON.parse(localStorage.getItem('cart')) || [];
-      return storage;
+      return storeX.getters.cartTotalItems
     },
   },
   methods: {
@@ -98,7 +89,6 @@ export default {
         this.store.cartShow = !this.store.cartShow;
         return;
       }
-
 
       if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  !JSON.parse(localStorage.getItem('cart')).length || !localStorage.getItem('cart')) {
         Swal.fire({

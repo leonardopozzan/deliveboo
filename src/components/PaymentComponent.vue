@@ -14,6 +14,7 @@
 <script>
 import { store } from '../store'
 import axios from 'axios';
+import {storeX} from '../store/index'
 
 export default {
 
@@ -68,7 +69,7 @@ export default {
 
         form.addEventListener('submit', event => {
           event.preventDefault();
-          if(!store.cart.length){
+          if(!storeX.getters.cartTotalItems){
               Swal.fire({
               position: 'center',
               icon: 'error',
@@ -90,7 +91,7 @@ export default {
             //   a server-side integration
             document.getElementById('nonce').value = payload.nonce;
             //   form.submit();
-            axios.post(`${store.apiBaseUrl}/order/payment`, { payment_method_nonce: payload.nonce, amount: store.totalPrice }).then((response) => {
+            axios.post(`${store.apiBaseUrl}/order/payment`, { payment_method_nonce: payload.nonce, amount: storeX.getters.cartTotalPrice }).then((response) => {
               store.paymentStatus = response.data.success;
               store.saveOrder = !store.saveOrder;
             })
