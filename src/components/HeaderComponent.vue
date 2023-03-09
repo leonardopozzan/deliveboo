@@ -90,7 +90,6 @@ export default {
         return;
       }
 
-
       if (this.$route.name != 'menu' && this.$route.name != 'check-out' && localStorage.getItem('cart') &&  !JSON.parse(localStorage.getItem('cart')).length || !localStorage.getItem('cart')) {
         Swal.fire({
           position: 'center',
