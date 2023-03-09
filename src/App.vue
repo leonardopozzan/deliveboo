@@ -9,6 +9,8 @@
 import { RouterView } from 'vue-router';
 import FooterComponent from './components/FooterComponent.vue';
 import { store } from './store';
+import { storeX } from './store/index';
+
 
 export default {
   name: 'App',
@@ -22,6 +24,9 @@ export default {
     return {
       store,
     }
+  },
+  mounted(){
+    storeX.commit('updateCartFromLocalStorage')
   }
 
 }

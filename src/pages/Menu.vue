@@ -39,8 +39,8 @@
                     <div class="fw-bold mb-1 text-capitalize">{{ dish.name }}</div>
                     <div class="fst-italic">{{ dish.ingredients }}</div>
                   </div>
-                  <button :disabled="vueLocalStorage.includes(dish.slug)"
-                    :class="{ 'color-red': vueLocalStorage.includes(dish.slug) }"
+                  <button :disabled="cartKeys.includes(dish.slug)"
+                    :class="{ 'color-red': cartKeys.includes(dish.slug) }"
                     @click="tryAddToCart(dish, menu.slug)"><i class="fa-solid fa-cart-shopping"></i></button>
                 </div>
               </div>
@@ -83,6 +83,7 @@ import axios from "axios";
 import { store } from "../store";
 import Swal from 'sweetalert2';
 import CartComponent from "../components/CartComponent.vue";
+import {storeX} from '../store/index'
 
 export default {
   name: "Menu",
@@ -97,18 +98,18 @@ export default {
       vueLocalStorage: []
     };
   },
-  watch: {
-    'store.cart': {
-      handler() {
-        this.getStorageKeys()
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   'store.cart': {
+  //     handler() {
+  //       this.getStorageKeys()
+  //     },
+  //     deep: true
+  //   }
+  // },
   mounted() {
     this.getDishes();
-    store.cart = this.getAllCart
-    this.getStorageKeys()
+    // store.cart = this.getAllCart
+    // this.getStorageKeys()
     this.getCategories();
   },
   computed: {
@@ -116,6 +117,9 @@ export default {
       let storage = JSON.parse(localStorage.getItem('cart')) || [];
       return storage;
     },
+    cartKeys(){
+      return storeX.getters.cartKeys
+    }
 
   },
   methods: {
@@ -194,19 +198,20 @@ export default {
     addToCart(dish, restaurantSlug) {
 
       localStorage.setItem('restaurantSlug', restaurantSlug);
+      storeX.commit('addToCart', dish)
 
-      dish.quantity = 1
-      store.cart.push(dish)
-      if (localStorage.getItem('cart')) {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        cart.push(dish);
-        localStorage.setItem('cart', JSON.stringify(cart));
-      }
-      else {
-        const cart = [];
-        cart.push(dish);
-        localStorage.setItem('cart', JSON.stringify(cart));
-      }
+      // dish.quantity = 1
+      // store.cart.push(dish)
+      // if (localStorage.getItem('cart')) {
+      //   const cart = JSON.parse(localStorage.getItem('cart'));
+      //   cart.push(dish);
+      //   localStorage.setItem('cart', JSON.stringify(cart));
+      // }
+      // else {
+      //   const cart = [];
+      //   cart.push(dish);
+      //   localStorage.setItem('cart', JSON.stringify(cart));
+      // }
       Swal.fire({
         position: 'center',
         icon: 'success',

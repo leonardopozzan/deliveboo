@@ -8,7 +8,7 @@
                 <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
                 <h2 class="text-center">Il tuo ordine</h2>
                 <div class="py-3 items-box">
-                    <div v-for="(item, i) in store.cart" class="cart-item">
+                    <div v-for="(item, i) in items" class="cart-item">
                         <div class="close" @click="removeItem(item, i)">X</div>
                         <div class="img-box">
                             <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
@@ -24,8 +24,8 @@
                     </div>
                 </div>
 
-                <div v-if="store.cart.length >= 1" class="price">{{ store.totalPrice }} &euro;</div>
-                <div class="text-center cart-buttons" v-if="store.cart.length >= 1">
+                <div v-if="items.length >= 1" class="price">{{ totalPrice }} &euro;</div>
+                <div class="text-center cart-buttons" v-if="items.length >= 1">
                     <button class="reset-btn" @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out', params: { slug: restaurantSlug } }"
                         @click="store.cartShow = false"><button>Compra</button></router-link>
@@ -41,6 +41,8 @@
 <script>
 import { store } from '../store'
 import Swal from 'sweetalert2';
+import { storeX } from '../store/index'
+
 
 export default {
     data() {
@@ -50,32 +52,42 @@ export default {
         }
     },
     computed: {
-
+        items(){
+            return storeX.getters.cartItems
+        },
+        totalPrice(){
+            return storeX.getters.cartTotalPrice
+        }
     },
     methods: {
         addQuantity(dish, i) {
-            store.cart[i].quantity++
-            const cart = JSON.parse(localStorage.getItem('cart'));
-            const item = cart.find(item => item.id === dish.id);
-            item.quantity++
-            localStorage.setItem('cart', JSON.stringify(cart))
+            storeX.commit('addToCart', dish)
+
+            // store.cart[i].quantity++
+            // const cart = JSON.parse(localStorage.getItem('cart'));
+            // const item = cart.find(item => item.id === dish.id);
+            // item.quantity++
+            // localStorage.setItem('cart', JSON.stringify(cart))
         },
         removeQuantity(dish, i) {
-            let cart = JSON.parse(localStorage.getItem('cart'));
-            const item = cart.find(item => item.id === dish.id);
-            item.quantity--
-            if (item.quantity) {
-                localStorage.setItem('cart', JSON.stringify(cart));
-                store.cart[i].quantity--;
-            } else {
-                cart = cart.filter((element) => element.slug !== dish.slug)
-                localStorage.setItem('cart', JSON.stringify(cart));
-                store.cart.splice(i, 1)
-            }
+            storeX.commit('removeFromCart', dish)
+
+            // let cart = JSON.parse(localStorage.getItem('cart'));
+            // const item = cart.find(item => item.id === dish.id);
+            // item.quantity--
+            // if (item.quantity) {
+            //     localStorage.setItem('cart', JSON.stringify(cart));
+            //     store.cart[i].quantity--;
+            // } else {
+            //     cart = cart.filter((element) => element.slug !== dish.slug)
+            //     localStorage.setItem('cart', JSON.stringify(cart));
+            //     store.cart.splice(i, 1)
+            // }
         },
         clearCart() {
             localStorage.clear()
-            store.cart = [];
+            storeX.commit('resetCart')
+            // store.cart = [];
 
         },
         resetOrder() {
@@ -101,46 +113,41 @@ export default {
 
 
         },
-        getTotal() {
-            let total = 0
-            for (let i = 0; i < store.cart.length; i++) {
-                total += (store.cart[i].price * store.cart[i].quantity)
-                // console.log(store.cart[i].price)
-                // console.log(store.cart[i].quantity)
-                // console.log(total)
-
-
-
-            }
-            total = total.toFixed(2)
-            store.totalPrice = total
-        },
+        // getTotal() {
+        //     let total = 0
+        //     for (let i = 0; i < store.cart.length; i++) {
+        //         total += (store.cart[i].price * store.cart[i].quantity)
+        //     }
+        //     total = total.toFixed(2)
+        //     store.totalPrice = total
+        // },
         getRestaurantSLug() {
             this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'none'
         },
         removeItem(item, i) {
-            store.cart.splice(i, 1);
+            storeX.commit('deleteFromCart', item)
+            // store.cart.splice(i, 1);
 
-            const cart = JSON.parse(localStorage.getItem('cart'));
-            const index = cart.findIndex((element) => {
-                return element.id == item.id;
-            });
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
+            // const cart = JSON.parse(localStorage.getItem('cart'));
+            // const index = cart.findIndex((element) => {
+            //     return element.id == item.id;
+            // });
+            // cart.splice(index, 1);
+            // localStorage.setItem('cart', JSON.stringify(cart));
         }
 
     },
-    watch: {
-        'store.cart': {
-            handler() {
-                this.getTotal()
-                this.getRestaurantSLug()
-            },
-            deep: true
-        }
-    },
-    mounted() {
-        this.getTotal()
+    // watch: {
+    //     'store.cart': {
+    //         handler() {
+    //             this.getTotal()
+    //             this.getRestaurantSLug()
+    //         },
+    //         deep: true
+    //     }
+    // },
+    updated() {
+        // this.getTotal()
         this.getRestaurantSLug()
     }
 }
