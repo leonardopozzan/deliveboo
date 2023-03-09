@@ -95,7 +95,6 @@ export default {
       categories: [],
       restaurantCategories: [],
       restaurantMenu: null,
-      vueLocalStorage: []
     };
   },
   mounted() {
@@ -103,14 +102,9 @@ export default {
     this.getCategories();
   },
   computed: {
-    getAllCart() {
-      let storage = JSON.parse(localStorage.getItem('cart')) || [];
-      return storage;
-    },
     cartKeys(){
       return storeX.getters.cartKeys
     }
-
   },
   methods: {
     getDishes() {
@@ -171,24 +165,22 @@ export default {
       return currentTime >= openingTime && currentTime <= closingTime;
     },
     tryAddToCart(dish, restaurantSlug) {
-      // console.log(restaurantSlug)
-      const isNotEmpty = !!localStorage.getItem('cart') && !!JSON.parse(localStorage.getItem('cart')).length
+      const isNotEmpty = !storeX.getters.cartTotalItems
       if (isNotEmpty) {
-        const restaurantId = JSON.parse(localStorage.getItem('cart'))[0].restaurant_id;
+        const restaurantId = storeX.getters.itemRestaurantId
         if (dish.restaurant_id != restaurantId) {
           this.sendError()
           return
         } else {
-          this.addToCart(dish, restaurantSlug)
+          storeX.commit('addToCart', dish)
+          this.sendSuccess()
           return
         }
       }
-      this.addToCart(dish, restaurantSlug)
-    },
-    addToCart(dish, restaurantSlug) {
-
-      localStorage.setItem('restaurantSlug', restaurantSlug);
       storeX.commit('addToCart', dish)
+      localStorage.setItem('restaurantSlug', restaurantSlug);
+    },
+    sendSuccess() {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -206,19 +198,6 @@ export default {
         timer: 2000
       });
     },
-    getStorageKeys() {
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      this.vueLocalStorage = [];
-      if (cart && cart.length) {
-        for (let i = 0; i < cart.length; i++) {
-          this.vueLocalStorage.push(cart[i].slug);
-        }
-
-      }
-    },
-
-
-
   },
 };
 </script>

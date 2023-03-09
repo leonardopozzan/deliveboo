@@ -8,8 +8,8 @@
                 <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
                 <h2 class="text-center">Il tuo ordine</h2>
                 <div class="py-3 items-box">
-                    <div v-for="(item, i) in items" class="cart-item">
-                        <div class="close" @click="removeItem(item, i)">X</div>
+                    <div v-for="(item, i) in cart" class="cart-item">
+                        <div class="close" @click="removeItem(item)">X</div>
                         <div class="img-box">
                             <img v-if="item.image" :src="`${store.imagBasePath}${item.image}`">
                             <img v-else src="/img/dd-slide.png" alt="">
@@ -17,15 +17,15 @@
                         </div>
                         <span class="text-capitalize me-3">{{ item.name }} </span>
                         <div class="d-flex">
-                            <button class="btn-cart" @click="removeQuantity(item, i)"> - </button>
+                            <button class="btn-cart" @click="removeQuantity(item)"> - </button>
                             <span class="px-2">{{ item.quantity }}</span>
-                            <button class="btn-cart" @click="addQuantity(item, i)"> + </button>
+                            <button class="btn-cart" @click="addQuantity(item)"> + </button>
                         </div>
                     </div>
                 </div>
 
-                <div v-if="items.length >= 1" class="price">{{ totalPrice }} &euro;</div>
-                <div class="text-center cart-buttons" v-if="items.length >= 1">
+                <div v-if="cart.length >= 1" class="price">{{ totalPrice }} &euro;</div>
+                <div class="text-center cart-buttons" v-if="cart.length >= 1">
                     <button class="reset-btn" @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out', params: { slug: restaurantSlug } }"
                         @click="store.cartShow = false"><button>Compra</button></router-link>
@@ -52,18 +52,18 @@ export default {
         }
     },
     computed: {
-        items(){
-            return storeX.getters.cartItems
+        cart(){
+            return storeX.getters.cart
         },
         totalPrice(){
             return storeX.getters.cartTotalPrice
         }
     },
     methods: {
-        addQuantity(dish, i) {
+        addQuantity(dish) {
             storeX.commit('addToCart', dish)
         },
-        removeQuantity(dish, i) {
+        removeQuantity(dish) {
             storeX.commit('removeFromCart', dish)
         },
         clearCart() {
@@ -94,7 +94,7 @@ export default {
         getRestaurantSLug() {
             this.restaurantSlug = localStorage.getItem('restaurantSlug') || 'none'
         },
-        removeItem(item, i) {
+        removeItem(item) {
             storeX.commit('deleteFromCart', item)
         }
     },

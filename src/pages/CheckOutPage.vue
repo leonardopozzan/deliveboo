@@ -185,7 +185,7 @@ export default {
         address: this.address,
         phoneNumber: this.phoneNumber,
         totalPrice: storeX.getters.cartTotalPrice,
-        cart: storeX.getters.cartItems,
+        cart: storeX.getters.cart,
         paymentStatus: store.paymentStatus
       }
       axios.post(`${store.apiBaseUrl}/purchase`, data, { headers: { "Content-Type": "multipart/form-data" } }).then((response) => {
@@ -206,7 +206,7 @@ export default {
           this.email = '';
           this.address = '';
           this.phoneNumber = '';
-          localStorage.setItem('cart', JSON.stringify([]))
+          localStorage.clear()
           storeX.commit('resetCart')
           setTimeout(()=>this.pay=false,2000)
           Swal.fire({

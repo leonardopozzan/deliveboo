@@ -7,27 +7,24 @@ function updateLocalStorage(cart){
 export const storeX = createStore({
     state:{
         cart: [],
-        storageKeys : [],
+        cartKeys : [],
     },
     getters:{
-        productQuantity : state => product => {
-            const item = state.cart.find(i => i.id === product.id)
-            if(item) return item.quantity
-            else return null
-        },
-        cartItems: state => {
+        cart: state => {
             return state.cart   
         },
         cartTotalPrice: state => {
             return state.cart.reduce((a,b) => a + (b.price * b.quantity), 0).toFixed(2)
         },
         cartKeys : state => {
-            return state.storageKeys
+            return state.cartKeys
         },
         cartTotalItems: state => {
             return state.cart.reduce((a,b) => a + b.quantity, 0)
         },
-
+        itemRestaurantId: state => {
+            return state.cart[0].restaurant_id
+        }
     },
     mutations:{
     addToCart(state, product){
@@ -36,7 +33,7 @@ export const storeX = createStore({
             item.quantity++
         }else{
             state.cart.push({...product, quantity : 1})
-            state.storageKeys.push(product.slug)
+            state.cartKeys.push(product.slug)
         }
 
         updateLocalStorage(state.cart)
@@ -48,7 +45,7 @@ export const storeX = createStore({
                 item.quantity--
             }else{
                 state.cart = state.cart.filter(i => i.id !== product.id)
-                state.storageKeys = state.storageKeys.filter(i => i !== product.slug)
+                state.cartKeys = state.cartKeys.filter(i => i !== product.slug)
             }
         }
         updateLocalStorage(state.cart)
@@ -56,7 +53,7 @@ export const storeX = createStore({
     },
     deleteFromCart(state, product){
         state.cart = state.cart.filter(i => i.id !== product.id)
-        state.storageKeys = state.storageKeys.filter(i => i !== product.slug)
+        state.cartKeys = state.cartKeys.filter(i => i !== product.slug)
         updateLocalStorage(state.cart)
     },
     updateCartFromLocalStorage(state){
@@ -65,15 +62,14 @@ export const storeX = createStore({
             state.cart = cart
             if (cart.length) {
                 for (let i = 0; i < cart.length; i++) {
-                    state.storageKeys.push(cart[i].slug);
+                    state.cartKeys.push(cart[i].slug);
                 }
             }
         }
     },
     resetCart(state){
         state.cart = [];
-        state.storageKeys = []
-        
+        state.cartKeys = []
     }
     },
     actions:{
