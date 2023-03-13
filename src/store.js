@@ -9,5 +9,7 @@ export const store = reactive({
 
     cartShow: false,
 
+    showModal: false,
+
     loading : false,
 });

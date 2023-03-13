@@ -87,10 +87,11 @@ export default {
     showCart() {
       const isMenuOrCheckOut = this.$route.name == 'menu' || this.$route.name == 'check-out'
       const notMenuAndNotCheckOut = this.$route.name != 'menu' && this.$route.name != 'check-out'
-      const isCartEmpty = !!storeX.getters.cartTotalItems
+      const isCartEmpty = !storeX.getters.cartTotalItems
 
       if (window.innerWidth <= 1199 && isMenuOrCheckOut) {
         this.store.cartShow = !this.store.cartShow;
+        this.store.showModal = !this.store.showModal;
         return;
       }
 

@@ -5,7 +5,7 @@
         <div class="my-cart">
 
             <div class="inner-cart d-flex flex-column justify-content-between">
-                <i class="fa-solid fa-xmark" @click="store.cartShow = false"></i>
+                <i class="fa-solid fa-xmark" @click="closeCart()"></i>
                 <h2 class="text-center">Il tuo ordine</h2>
                 <div class="py-3 items-box">
                     <div v-for="(item, i) in cart" class="cart-item">
@@ -28,7 +28,7 @@
                 <div class="text-center cart-buttons" v-if="cart.length >= 1">
                     <button class="reset-btn" @click="resetOrder()">Resetta</button>
                     <router-link :to="{ name: 'check-out', params: { slug: restaurantSlug } }"
-                        @click="store.cartShow = false"><button>Compra</button></router-link>
+                        @click="closeCart()"><button>Compra</button></router-link>
                 </div>
                 <div class="cart-buttons text-center" v-else>Aggiungi un prodotto per ordinare</div>
             </div>
@@ -96,6 +96,10 @@ export default {
         },
         removeItem(item) {
             storeX.commit('deleteFromCart', item)
+        },
+        closeCart(){
+            store.cartShow = false
+            store.showModal = false
         }
     },
     updated() {

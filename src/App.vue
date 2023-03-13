@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'cartTest': store.cartShow }">
+  <div :class="{ 'cartTest': store.showModal }">
     <router-view></router-view>
     <FooterComponent></FooterComponent>
   </div>
